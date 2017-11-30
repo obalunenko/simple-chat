@@ -1,3 +1,9 @@
+- 2017-12-01: Changelog update
+
+- 2017-12-01: update gitignore
+
+- 2017-12-01: Refactoring: Split guest and host, move to lib package
+
 - 2017-12-01: Add run-build.sh. Build binaries
 
 - 2017-11-28: build binary
