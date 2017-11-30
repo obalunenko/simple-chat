@@ -1,14 +1,13 @@
 package main
 
 import (
-	"bufio"
 	"flag"
-	"fmt"
-	"log"
-	"net"
 	"os"
+
+	"github.com/oleg-balunenko/simple-chat/lib"
 )
 
+//noinspection GoUnresolvedReference
 func main() {
 	var isHost bool
 
@@ -16,40 +15,14 @@ func main() {
 	flag.Parse()
 
 	if isHost {
-		// go run main.go -listen <ip>
+		// go run  main.go  -listen <ip>
 		connIP := os.Args[2]
-		runHost(connIP)
+		lib.RunHost(connIP)
 	} else {
-		// go run main.go <ip>
+		// go run main.go  <ip>
 		connIP := os.Args[1]
-		runGuest(connIP)
+		lib.RunGuest(connIP)
 	}
 
 }
 
-const port = "8080"
-
-func runHost(ip string) {
-	ipAndPort := ip + ":" + port
-	listener, listenerErr := net.Listen("tcp", ipAndPort)
-	if listenerErr != nil {
-		log.Fatal("Error: ", listenerErr)
-	}
-
-	conn, acceptErr := listener.Accept()
-	if acceptErr != nil {
-		log.Fatal("Error: ", acceptErr)
-	}
-
-	reader := bufio.NewReader(conn)
-	message, readErr := reader.ReadString('\n')
-	if readErr != nil {
-		log.Fatal("Error: ", readErr)
-	}
-
-	fmt.Println("Message received: ", message)
-}
-
-func runGuest(ip string) {
-
-}
