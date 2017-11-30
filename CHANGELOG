@@ -1,0 +1,9 @@
+- 2017-11-28: build binary
+
+- 2017-11-28: implement runHost function
+
+- 2017-11-28: add main function and runHost
+
+- 2017-11-28: update .gitignore
+
+- 2017-11-27: Initial commit
