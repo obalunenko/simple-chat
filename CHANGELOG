@@ -1,3 +1,5 @@
+- 2017-12-01: Add run-build.sh. Build binaries
+
 - 2017-11-28: build binary
 
 - 2017-11-28: implement runHost function
