@@ -13,6 +13,9 @@ func RunGuest(ip string) {
 
 	ipAndPort := ip + ":" + port
 	conn, dialErr := net.Dial("tcp", ipAndPort)
+
+	defer conn.Close()
+
 	if dialErr != nil {
 
 		log.Fatal("Error: ", dialErr)
