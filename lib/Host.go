@@ -13,6 +13,9 @@ import (
 func RunHost(ip string) {
 	ipAndPort := ip + ":" + port
 	listener, listenerErr := net.Listen("tcp", ipAndPort)
+
+	defer listener.Close()
+
 	if listenerErr != nil {
 		log.Fatal("Error: ", listenerErr)
 	}
