@@ -7,8 +7,6 @@ import (
 	"net"
 )
 
-const port = "8080"
-
 // RunHost takes an ip as an argument "-listen"
 // and listens for connections on the ip in argument
 func RunHost(ip string) {
