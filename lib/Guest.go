@@ -14,7 +14,7 @@ func RunGuest(ip string) {
 	ipAndPort := ip + ":" + port
 	conn, dialErr := net.Dial("tcp", ipAndPort)
 
-	defer conn.Close()
+	defer closeConnection(conn)
 
 	if dialErr != nil {
 
@@ -48,5 +48,13 @@ func handleGuest(conn net.Conn) {
 	}
 
 	fmt.Println("Message received: ", replyMessage)
+
+}
+
+func closeConnection(connection net.Conn) {
+
+	fmt.Println("Closing the Guest connection.....")
+
+	connection.Close()
 
 }
