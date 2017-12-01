@@ -3,7 +3,7 @@
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 PACKAGE_NAME=$(basename "$SCRIPT_DIR")
 mkdir -p ${SCRIPT_DIR}
-PACKAGE_BIN_DIR=${SCRIPT_DIR}
+PACKAGE_BIN_DIR=${SCRIPT_DIR}/bin
 
 rm ${PACKAGE_BIN_DIR}/${PACKAGE_NAME}-*
 
