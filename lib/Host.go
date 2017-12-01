@@ -14,7 +14,7 @@ func RunHost(ip string) {
 	ipAndPort := ip + ":" + port
 	listener, listenerErr := net.Listen("tcp", ipAndPort)
 
-	defer listener.Close()
+	defer closeListening(listener)
 
 	if listenerErr != nil {
 		log.Fatal("Error: ", listenerErr)
@@ -23,6 +23,8 @@ func RunHost(ip string) {
 	fmt.Println("Listening on: ", ipAndPort)
 
 	conn, acceptErr := listener.Accept()
+	defer closeConnection(conn)
+
 	if acceptErr != nil {
 		log.Fatal("Error: ", acceptErr)
 	}
@@ -55,5 +57,12 @@ func handleHost(conn net.Conn) {
 	}
 
 	fmt.Fprint(conn, replyMessage)
+
+}
+
+func closeListening(listener net.Listener) {
+
+	fmt.Println("Closing the Host listener.....")
+	listener.Close()
 
 }
