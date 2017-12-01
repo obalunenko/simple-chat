@@ -1,3 +1,10 @@
+- 2017-12-01: Implement Guest
+Signed-off-by: Oleg Balunenko <oleg.balunenko@be-mobile.com>
+
+- 2017-12-01: Add types.go to lib (const var + struct Client)
+
+- 2017-12-01: binaries update. Changelog
+
 - 2017-12-01: Add separate checks for host adn guest arguments
 Signed-off-by: Oleg Balunenko <oleg.balunenko@be-mobile.com>
 
