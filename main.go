@@ -16,7 +16,7 @@ func main() {
 	if len(flag.Args()) < 1 {
 		log.Fatal("Error:ip address not specified")
 	}
-	connIP := flag.Args()[1]
+	connIP := flag.Args()[0]
 
 	if isHost {
 		// go run  main.go  -listen <ip>
