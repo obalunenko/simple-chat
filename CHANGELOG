@@ -1,3 +1,11 @@
+- 2017-12-01: Add separate checks for host adn guest arguments
+Signed-off-by: Oleg Balunenko <oleg.balunenko@be-mobile.com>
+
+- 2017-12-01: Add more info to stdout. Finish program if ip address was not specified
+Signed-off-by: Oleg Balunenko <oleg.balunenko@be-mobile.com>
+
+- 2017-12-01: update gitignore. Build binaries
+
 - 2017-12-01: Changelog update
 
 - 2017-12-01: update gitignore
