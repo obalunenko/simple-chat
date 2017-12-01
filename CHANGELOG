@@ -1,3 +1,39 @@
+- 2017-12-01: Host: Implement closeListening function  and put it to defer after establishing connection to close it on exit
+Signed-off-by: Oleg Balunenko <oleg.balunenko@be-mobile.com>
+
+- 2017-12-01: Guest: Implement closeConnection function  and put it to defer after establishing connection to close it on exit
+Signed-off-by: Oleg Balunenko <oleg.balunenko@be-mobile.com>
+
+- 2017-12-01: Main: Fix major bug in flags parse
+Signed-off-by: Oleg Balunenko <oleg.balunenko@be-mobile.com>
+
+- 2017-12-01: Host: Add defer listener close
+Signed-off-by: Oleg Balunenko <oleg.balunenko@be-mobile.com>
+
+- 2017-12-01: Guest: Add Dial connection close to defer
+Signed-off-by: Oleg Balunenko <oleg.balunenko@be-mobile.com>
+
+- 2017-12-01: Refactoring: Parse non-flag command-line arguments (only ip is expected) and if no arguments exit program
+Signed-off-by: Oleg Balunenko <oleg.balunenko@be-mobile.com>
+
+- 2017-12-01: Add README
+Signed-off-by: Oleg Balunenko <oleg.balunenko@be-mobile.com>
+
+- 2017-12-01: Move binaries to `bin` directory. Update sh script to use bin directory as destination folder
+Signed-off-by: Oleg Balunenko <oleg.balunenko@be-mobile.com>
+
+- 2017-12-01: Move binaries to `bin` directory. Update sh script to use bin directory as destination folder
+Signed-off-by: Oleg Balunenko <oleg.balunenko@be-mobile.com>
+
+- 2017-12-01: Update binaries
+Signed-off-by: Oleg Balunenko <oleg.balunenko@be-mobile.com>
+
+- 2017-12-01: add infinit loop for Host
+Signed-off-by: Oleg Balunenko <oleg.balunenko@be-mobile.com>
+
+- 2017-12-01: add infinit loop for Guest
+Signed-off-by: Oleg Balunenko <oleg.balunenko@be-mobile.com>
+
 - 2017-12-01: Update binaries
 
 - 2017-12-01: Implement Guest
