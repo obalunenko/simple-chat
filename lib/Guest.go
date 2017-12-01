@@ -19,6 +19,15 @@ func RunGuest(ip string) {
 
 	}
 
+	for {
+
+		handleGuest(conn)
+	}
+
+}
+
+func handleGuest(conn net.Conn) {
+
 	fmt.Print("Send message: ")
 	reader := bufio.NewReader(os.Stdin)
 
@@ -27,6 +36,14 @@ func RunGuest(ip string) {
 	if readErr != nil {
 		log.Fatal("Error: ", readErr)
 	}
-
 	fmt.Fprint(conn, message)
+
+	replyReader := bufio.NewReader(conn)
+	replyMessage, replyErr := replyReader.ReadString('\n')
+	if replyErr != nil {
+		log.Fatal("Error: ", replyErr)
+	}
+
+	fmt.Println("Message received: ", replyMessage)
+
 }
