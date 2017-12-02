@@ -7,7 +7,6 @@ import (
 	"github.com/oleg-balunenko/simple-chat/lib"
 )
 
-//noinspection GoUnresolvedReference
 func main() {
 	var isHost bool
 
