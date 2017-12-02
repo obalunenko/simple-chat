@@ -11,7 +11,12 @@ import (
 // RunGuest takes an argument ip and connects to host with ip
 func RunGuest(ip string) {
 
-	ipAndPort := ip + ":" + port
+	guest := new(Client)
+
+	guest.SetIP(ip)
+	guest.SetName()
+
+	ipAndPort := guest.IP + ":" + port
 	conn, dialErr := net.Dial("tcp", ipAndPort)
 
 	defer closeConnection(conn)
@@ -24,12 +29,12 @@ func RunGuest(ip string) {
 
 	for {
 
-		handleGuest(conn)
+		handleGuest(conn, guest.Name)
 	}
 
 }
 
-func handleGuest(conn net.Conn) {
+func handleGuest(conn net.Conn, guestName string) {
 
 	fmt.Print("Send message: ")
 	reader := bufio.NewReader(os.Stdin)
@@ -39,7 +44,7 @@ func handleGuest(conn net.Conn) {
 	if readErr != nil {
 		log.Fatal("Error: ", readErr)
 	}
-	fmt.Fprint(conn, message)
+	fmt.Fprint(conn, guestName+": "+message)
 
 	replyReader := bufio.NewReader(conn)
 	replyMessage, replyErr := replyReader.ReadString('\n')
