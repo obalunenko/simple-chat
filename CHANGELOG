@@ -1,3 +1,8 @@
+- 2017-12-01: udpate gitignore
+
+- 2017-12-01: Update binaries
+Signed-off-by: Oleg Balunenko <oleg.balunenko@be-mobile.com>
+
 - 2017-12-01: Host: Implement closeListening function  and put it to defer after establishing connection to close it on exit
 Signed-off-by: Oleg Balunenko <oleg.balunenko@be-mobile.com>
 
