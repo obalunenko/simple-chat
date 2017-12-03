@@ -1,3 +1,27 @@
+- 2017-12-03: lib/Guest: Refactor to use interfaces for Client
+Signed-off-by: Oleg Balunenko <oleg.balunenko@be-mobile.com>
+
+- 2017-12-03: lib/Host: Refactor to use interfaces for Client
+Signed-off-by: Oleg Balunenko <oleg.balunenko@be-mobile.com>
+
+- 2017-12-03: lib/types: Implement Name() function, SetMessage(), SetTimestamp(), GetMessage()
+Signed-off-by: Oleg Balunenko <oleg.balunenko@be-mobile.com>
+
+- 2017-12-03: lib/types: Implement SetMessage function
+Signed-off-by: Oleg Balunenko <oleg.balunenko@be-mobile.com>
+
+- 2017-12-02: bin: Update binaries
+Signed-off-by: Oleg Balunenko <oleg.balunenko@be-mobile.com>
+
+- 2017-12-02: lib/Guest: Add identification of guest (name)
+Signed-off-by: Oleg Balunenko <oleg.balunenko@be-mobile.com>
+
+- 2017-12-02: lib: Implement setName and setIp functions for Client
+Signed-off-by: Oleg Balunenko <oleg.balunenko@be-mobile.com>
+
+- 2017-12-02: Main: Delete unnecessary  comment
+Signed-off-by: Oleg Balunenko <oleg.balunenko@be-mobile.com>
+
 - 2017-12-01: udpate gitignore
 
 - 2017-12-01: Update binaries
