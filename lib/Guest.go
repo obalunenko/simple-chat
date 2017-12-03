@@ -5,12 +5,14 @@ import (
 	"fmt"
 	"log"
 	"net"
+
+	"github.com/oleg-balunenko/simple-chat/lib/types"
 )
 
 // RunGuest takes an argument ip and connects to host with ip
 func RunGuest(ip string) {
 
-	guest := new(Client)
+	guest := new(types.Client)
 
 	guest.SetAddress(ip)
 	guest.SetName()
@@ -32,7 +34,7 @@ func RunGuest(ip string) {
 
 }
 
-func handleGuest(conn net.Conn, guest *Client) {
+func handleGuest(conn net.Conn, guest *types.Client) {
 
 	guest.SetMessage()
 
