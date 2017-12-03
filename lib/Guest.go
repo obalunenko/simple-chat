@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"log"
 	"net"
-	"os"
 )
 
 // RunGuest takes an argument ip and connects to host with ip
@@ -13,11 +12,10 @@ func RunGuest(ip string) {
 
 	guest := new(Client)
 
-	guest.SetIP(ip)
+	guest.SetAddress(ip)
 	guest.SetName()
 
-	ipAndPort := guest.IP + ":" + port
-	conn, dialErr := net.Dial("tcp", ipAndPort)
+	conn, dialErr := net.Dial("tcp", guest.GetAddress())
 
 	defer closeConnection(conn)
 
@@ -29,22 +27,16 @@ func RunGuest(ip string) {
 
 	for {
 
-		handleGuest(conn, guest.Name)
+		handleGuest(conn, guest)
 	}
 
 }
 
-func handleGuest(conn net.Conn, guestName string) {
+func handleGuest(conn net.Conn, guest *Client) {
 
-	fmt.Print("Send message: ")
-	reader := bufio.NewReader(os.Stdin)
+	guest.SetMessage()
 
-	message, readErr := reader.ReadString('\n')
-
-	if readErr != nil {
-		log.Fatal("Error: ", readErr)
-	}
-	fmt.Fprint(conn, guestName+": "+message)
+	fmt.Fprint(conn, guest.Name()+": "+guest.GetMessage())
 
 	replyReader := bufio.NewReader(conn)
 	replyMessage, replyErr := replyReader.ReadString('\n')
@@ -52,7 +44,7 @@ func handleGuest(conn net.Conn, guestName string) {
 		log.Fatal("Error: ", replyErr)
 	}
 
-	fmt.Println("Message received: ", replyMessage)
+	fmt.Println("Message received from", replyMessage)
 
 }
 
