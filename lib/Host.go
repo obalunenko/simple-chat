@@ -5,14 +5,24 @@ import (
 	"fmt"
 	"log"
 	"net"
-	"os"
+
+	"github.com/oleg-balunenko/simple-chat/lib/types"
 )
+
+// TODO: implement receive and send messagges in JSON format. JSON should contain message and name of client
+
+// TODO: implement websocket instead of TCP connection
 
 // RunHost takes an ip as an argument "-listen"
 // and listens for connections on the ip in argument
 func RunHost(ip string) {
-	ipAndPort := ip + ":" + port
-	listener, listenerErr := net.Listen("tcp", ipAndPort)
+
+	host := new(types.Client)
+
+	host.SetAddress(ip)
+	host.SetName()
+
+	listener, listenerErr := net.Listen("tcp", host.GetAddress())
 
 	defer closeListening(listener)
 
@@ -20,7 +30,7 @@ func RunHost(ip string) {
 		log.Fatal("Error: ", listenerErr)
 	}
 
-	fmt.Println("Listening on: ", ipAndPort)
+	fmt.Println("Listening on: ", host.GetAddress())
 
 	conn, acceptErr := listener.Accept()
 	defer closeConnection(conn)
@@ -33,13 +43,13 @@ func RunHost(ip string) {
 
 	for {
 
-		handleHost(conn)
+		handleHost(conn, host)
 
 	}
 
 }
 
-func handleHost(conn net.Conn) {
+func handleHost(conn net.Conn, host *types.Client) {
 
 	reader := bufio.NewReader(conn)
 	message, readErr := reader.ReadString('\n')
@@ -47,16 +57,11 @@ func handleHost(conn net.Conn) {
 		log.Fatal("Error: ", readErr)
 	}
 
-	fmt.Println("Message received: ", message)
+	fmt.Println("Message received from", message)
 
-	fmt.Print("Send message: ")
-	replyReader := bufio.NewReader(os.Stdin)
-	replyMessage, replyErr := replyReader.ReadString('\n')
-	if replyErr != nil {
-		log.Fatal("Error: ", replyErr)
-	}
+	host.SetMessage()
 
-	fmt.Fprint(conn, replyMessage)
+	fmt.Fprint(conn, host.Name()+": "+host.GetMessage())
 
 }
 
