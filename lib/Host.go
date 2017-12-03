@@ -5,13 +5,15 @@ import (
 	"fmt"
 	"log"
 	"net"
+
+	"github.com/oleg-balunenko/simple-chat/lib/types"
 )
 
 // RunHost takes an ip as an argument "-listen"
 // and listens for connections on the ip in argument
 func RunHost(ip string) {
 
-	host := new(Client)
+	host := new(types.Client)
 
 	host.SetAddress(ip)
 	host.SetName()
@@ -43,7 +45,7 @@ func RunHost(ip string) {
 
 }
 
-func handleHost(conn net.Conn, host *Client) {
+func handleHost(conn net.Conn, host *types.Client) {
 
 	reader := bufio.NewReader(conn)
 	message, readErr := reader.ReadString('\n')
