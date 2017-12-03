@@ -9,56 +9,93 @@ import (
 	"time"
 )
 
-const port = "8080"
-
 // Client
 type Client struct {
-	IP   string
-	Name string
-	Message
+	address
+	name string
+	message
 }
 
-// Message
-type Message struct {
-	Timestamp   time.Time
-	MessageText string
+// address
+type address struct {
+	ip   string
+	port string
 }
 
-// SetName
+// message
+type message struct {
+	timestamp   string
+	messageText string
+}
+
+// SetAddress function set Port and IP for client
+func (c *Client) SetAddress(ip string) {
+
+	c.port = "8080"
+	c.ip = ip
+
+}
+
+// GetAddress function return address of client in format IP:port
+func (c *Client) GetAddress() (address string) {
+
+	address = c.ip + ":" + c.port
+	return address
+}
+
+// SetName function prompt to enter name of Client
 func (c *Client) SetName() {
 	fmt.Print("Enter your name: ")
 	setNameReader := bufio.NewReader(os.Stdin)
-	name, setNameErr := setNameReader.ReadString('\n')
+	nameInput, setNameErr := setNameReader.ReadString('\n')
 	if setNameErr != nil {
 		log.Fatal("Error: ", setNameErr)
 	}
-	name = strings.Replace(name, "\n", "", -1)
-	c.Name = name
+	nameInput = strings.Replace(nameInput, "\n", "", -1)
+	c.name = nameInput
 
 }
 
-// SetIP
-func (c *Client) SetIP(ip string) {
-	c.IP = ip
+// Name say the name of Client
+func (c *Client) Name() string {
+
+	return c.name
 }
 
-// SetMessageText
+// SetMessage function set message object:  messageText and Timestamp
+func (c *Client) SetMessage() {
+
+	c.SetMessageText()
+	c.SetTimestamp()
+}
+
+// SetMessageText function prompt to enter text of message
 func (c *Client) SetMessageText() {
 	fmt.Print("Send message: ")
 	reader := bufio.NewReader(os.Stdin)
 
-	message, readErr := reader.ReadString('\n')
+	messageInput, readErr := reader.ReadString('\n')
 
 	if readErr != nil {
+
 		log.Fatal("Error: ", readErr)
 	}
 
-	c.MessageText = message
+	c.messageText = messageInput
+
 }
 
-// SetTimestamp
+// SetTimestamp function set current timestamp for each message
 func (c *Client) SetTimestamp() {
 
-	c.Timestamp = time.Now()
+	var timestampLayout = "01-02-2006 15:46:02"
+	t := time.Now()
+	c.timestamp = t.Format(timestampLayout)
+}
 
+// GetMessage gives message with timestamp
+func (c *Client) GetMessage() (message string) {
+
+	message = c.messageText + "\t\t" + c.timestamp
+	return message
 }
