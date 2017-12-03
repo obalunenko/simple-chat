@@ -5,14 +5,20 @@ import (
 	"fmt"
 	"log"
 	"net"
-	"os"
+
+	"github.com/oleg-balunenko/simple-chat/lib/types"
 )
 
+// TODO: implement receive and send messagges in JSON format. JSON should contain message and name of client
 // RunGuest takes an argument ip and connects to host with ip
 func RunGuest(ip string) {
 
-	ipAndPort := ip + ":" + port
-	conn, dialErr := net.Dial("tcp", ipAndPort)
+	guest := new(types.Client)
+
+	guest.SetAddress(ip)
+	guest.SetName()
+
+	conn, dialErr := net.Dial("tcp", guest.GetAddress())
 
 	defer closeConnection(conn)
 
@@ -24,22 +30,16 @@ func RunGuest(ip string) {
 
 	for {
 
-		handleGuest(conn)
+		handleGuest(conn, guest)
 	}
 
 }
 
-func handleGuest(conn net.Conn) {
+func handleGuest(conn net.Conn, guest *types.Client) {
 
-	fmt.Print("Send message: ")
-	reader := bufio.NewReader(os.Stdin)
+	guest.SetMessage()
 
-	message, readErr := reader.ReadString('\n')
-
-	if readErr != nil {
-		log.Fatal("Error: ", readErr)
-	}
-	fmt.Fprint(conn, message)
+	fmt.Fprint(conn, guest.Name()+": "+guest.GetMessage())
 
 	replyReader := bufio.NewReader(conn)
 	replyMessage, replyErr := replyReader.ReadString('\n')
@@ -47,7 +47,7 @@ func handleGuest(conn net.Conn) {
 		log.Fatal("Error: ", replyErr)
 	}
 
-	fmt.Println("Message received: ", replyMessage)
+	fmt.Println("Message received from", replyMessage)
 
 }
 
