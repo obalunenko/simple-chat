@@ -9,6 +9,7 @@ import (
 	"github.com/oleg-balunenko/simple-chat/lib/types"
 )
 
+// TODO: implement receive and send messagges in JSON format. JSON should contain message and name of client
 // RunGuest takes an argument ip and connects to host with ip
 func RunGuest(ip string) {
 
