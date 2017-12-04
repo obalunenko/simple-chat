@@ -130,12 +130,20 @@ func (c *Client) Message() (message string) {
 // ObjectToJson function creates json from client object
 func (c *Client) ObjectToJson() (jsonData []byte) {
 
-	clientJson := new(clientJsonType)
-	clientJson.Name = c.Name()
-	clientJson.Port = c.Port()
-	clientJson.IP = c.IP()
-	clientJson.Timestamp = c.Timestamp()
-	clientJson.MessageText = c.MessageText()
+	var (
+		clientJson = clientJsonType{
+			Address{
+				c.Port(),
+				c.IP(),
+			},
+			c.Name(),
+
+			Message{
+				c.Timestamp(),
+				c.MessageText(),
+			},
+		}
+	)
 
 	jsonData, jsonErr := json.Marshal(&clientJson)
 	if jsonErr != nil {
