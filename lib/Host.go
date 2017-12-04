@@ -9,9 +9,9 @@ import (
 	"github.com/oleg-balunenko/simple-chat/lib/chatTypes"
 )
 
-// TODO: implement receive and send messagges in JSON format. JSON should contain message and name of client
+// TODO: implement receive and send messages in JSON format. JSON should contain message and name of client
 
-// TODO: implement websocket instead of TCP connection
+// TODO: implement web-socket instead of TCP connection
 
 // RunHost takes an ip as an argument "-listen"
 // and listens for connections on the ip in argument
