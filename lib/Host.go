@@ -6,7 +6,7 @@ import (
 	"log"
 	"net"
 
-	"github.com/oleg-balunenko/simple-chat/lib/types"
+	"github.com/oleg-balunenko/simple-chat/lib/chatTypes"
 )
 
 // TODO: implement receive and send messagges in JSON format. JSON should contain message and name of client
@@ -17,12 +17,12 @@ import (
 // and listens for connections on the ip in argument
 func RunHost(ip string) {
 
-	host := new(types.Client)
+	host := new(chatTypes.Client)
 
 	host.SetAddress(ip)
 	host.SetName()
 
-	listener, listenerErr := net.Listen("tcp", host.GetAddress())
+	listener, listenerErr := net.Listen("tcp", host.Address())
 
 	defer closeListening(listener)
 
@@ -30,7 +30,7 @@ func RunHost(ip string) {
 		log.Fatal("Error: ", listenerErr)
 	}
 
-	fmt.Println("Listening on: ", host.GetAddress())
+	fmt.Println("Listening on: ", host.Address())
 
 	conn, acceptErr := listener.Accept()
 	defer closeConnection(conn)
@@ -49,7 +49,7 @@ func RunHost(ip string) {
 
 }
 
-func handleHost(conn net.Conn, host *types.Client) {
+func handleHost(conn net.Conn, host *chatTypes.Client) {
 
 	reader := bufio.NewReader(conn)
 	message, readErr := reader.ReadString('\n')
@@ -61,7 +61,7 @@ func handleHost(conn net.Conn, host *types.Client) {
 
 	host.SetMessage()
 
-	fmt.Fprint(conn, host.Name()+": "+host.GetMessage())
+	fmt.Fprint(conn, host.Name()+": "+host.Message())
 
 }
 
