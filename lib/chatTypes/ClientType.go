@@ -66,9 +66,10 @@ func (c *Client) SetName() {
 	setNameReader := bufio.NewReader(os.Stdin)
 	nameInput, setNameErr := setNameReader.ReadString('\n')
 	if setNameErr != nil {
-		log.Fatal("Error: ", setNameErr)
+		log.Fatal("SetName(): Error to read input: ", setNameErr)
 	}
 	nameInput = strings.Replace(nameInput, "\n", "", -1)
+	nameInput = strings.Replace(nameInput, "\r", "", -1)
 	c.name = nameInput
 
 }
@@ -95,10 +96,12 @@ func (c *Client) setMessageText() {
 
 	if readErr != nil {
 
-		log.Fatal("Error: ", readErr)
+		log.Fatal("SetMessage(): Error to read input: ", readErr)
 	}
 
-	c.message.messageText = strings.Replace(messageInput, "\n", "", -1)
+	messageInput = strings.Replace(messageInput, "\n", "", -1)
+	messageInput = strings.Replace(messageInput, "\r", "", -1)
+	c.message.messageText = messageInput
 
 }
 
@@ -147,9 +150,31 @@ func (c *Client) ObjectToJson() (jsonData []byte) {
 
 	jsonData, jsonErr := json.Marshal(&clientJson)
 	if jsonErr != nil {
-		log.Fatal("Error: ", jsonErr)
+		log.Fatal("ObjectToJson(): Error to Marshal: ", jsonErr)
 	}
 	fmt.Println("Will be send (string):\n ", string(jsonData))
 
 	return jsonData
+}
+
+// ObjectFromJson creates struct Client from json object
+func (c *Client) ObjectFromJson(jsonData []byte) *Client {
+
+	clientJson := new(clientJsonType)
+
+	jsonData = []byte(string(jsonData)) //maybe will cut off empty bytes??
+
+	err := json.Unmarshal(jsonData, &clientJson)
+	if err != nil {
+		log.Fatal("ObjectFromJson(): Error to Unmarshal: ", err)
+	}
+	fmt.Println("Struct from received json byte: ", clientJson)
+
+	c.name = clientJson.Name
+	c.address.ip = clientJson.IP
+	c.address.port = clientJson.Port
+	c.message.messageText = clientJson.MessageText
+	c.message.timestamp = clientJson.Timestamp
+
+	return c
 }
