@@ -19,7 +19,7 @@ func sendData(c *chatTypes.Client, conn net.Conn) {
 }
 
 // receiveData receives byte array from connection net.Conn
-func receiveData(_, conn net.Conn) (jsonData []byte) {
+func receiveData(conn net.Conn) (jsonData []byte) {
 
 	_, err := conn.Read(jsonData)
 	if err != nil {

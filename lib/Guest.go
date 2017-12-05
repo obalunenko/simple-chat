@@ -41,7 +41,7 @@ func handleGuest(conn net.Conn, guest *chatTypes.Client) {
 
 	sendData(guest, conn)
 
-	jsonData := receiveData(guest, conn)
+	jsonData := receiveData(conn)
 
 	fmt.Println("Received data in string: ", string(jsonData))
 
