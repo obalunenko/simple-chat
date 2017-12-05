@@ -1,3 +1,5 @@
+- 2017-12-05: Update CHANGELOG
+
 - 2017-12-05: lib: Refactor delete *client form arguments of receiveData()
 
 - 2017-12-05: lib/Guest.go: refactor to move send/receive func to lib/Messages.go
