@@ -1,3 +1,5 @@
+- 2017-12-05: attemp to fix not empty values at end of array
+
 - 2017-12-05: attempt to delete 0 values
 
 - 2017-12-05: lib/Guest.go: Info to errors; Compose message from addressee Client obj
