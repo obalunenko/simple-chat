@@ -152,6 +152,7 @@ func (c *Client) ObjectToJson() (jsonData []byte) {
 	if jsonErr != nil {
 		log.Fatal("ObjectToJson(): Error to Marshal: ", jsonErr)
 	}
+	fmt.Println("Will be send ([] byte):\n ", jsonData)
 	fmt.Println("Will be send (string):\n ", string(jsonData))
 
 	return jsonData
@@ -162,7 +163,8 @@ func (c *Client) ObjectFromJson(jsonData []byte) *Client {
 
 	clientJson := new(clientJsonType)
 
-	jsonData = []byte(string(jsonData)) //maybe will cut off empty bytes??
+	fmt.Println("Will be Unmarshall ([]byte): ", jsonData)
+	fmt.Println("Will be Unmarshall (string): ", string(jsonData), "Some text!")
 
 	err := json.Unmarshal(jsonData, &clientJson)
 	if err != nil {

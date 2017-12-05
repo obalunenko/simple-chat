@@ -1,3 +1,9 @@
+- 2017-12-05: lib/Guest.go: Info to errors; Compose message from addressee Client obj
+
+- 2017-12-05: lib/chatTypes/ClientType.go: ObjectFormJson; info to errors
+
+- 2017-12-05: lib/Messages.go: Implement receiveData(); Add info to errors
+
 - 2017-12-05: Update CHANGELOG
 
 - 2017-12-05: lib: Refactor delete *client form arguments of receiveData()

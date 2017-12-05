@@ -1,6 +1,7 @@
 package lib
 
 import (
+	"fmt"
 	"log"
 	"net"
 
@@ -26,20 +27,32 @@ func receiveData(conn net.Conn) []byte {
 
 	dataReceived := false
 
-	jsonData := make([]byte, 500)
+	jsonDataTemp := make([]byte, 1000)
 
 	for !dataReceived {
-		_, err := conn.Read(jsonData)
+		_, err := conn.Read(jsonDataTemp)
 		if err != nil {
 			log.Fatal("receiveData(conn net.Conn): Error to conn.Read into jsonData: ", err)
 		}
 
-		if len(jsonData) > 0 {
+		if len(jsonDataTemp) > 0 {
 			dataReceived = true
 		}
 
 	}
 
-	//fmt.Println("Data received: ", jsonData)
-	return jsonData
+	/*var jsonData []byte
+	copy(jsonData, jsonDataTemp)
+	for i := 0; i < (len(jsonData)); i++ {
+		if jsonData[i] == 0 {
+			jsonData = jsonData[0 : len(jsonData)-1]
+
+		}
+
+	}*/
+
+	fmt.Println("Data received ([] byte):\n ", jsonDataTemp)
+	fmt.Println("Data received (string):\n ", string(jsonDataTemp))
+
+	return jsonDataTemp
 }
