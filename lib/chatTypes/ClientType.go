@@ -98,7 +98,7 @@ func (c *Client) setMessageText() {
 		log.Fatal("Error: ", readErr)
 	}
 
-	c.message.messageText = messageInput
+	c.message.messageText = strings.Replace(messageInput, "\n", "", -1)
 
 }
 
@@ -132,15 +132,15 @@ func (c *Client) ObjectToJson() (jsonData []byte) {
 
 	var (
 		clientJson = clientJsonType{
-			Address{
-				c.Port(),
-				c.IP(),
+			Address: Address{
+				IP:   c.Port(),
+				Port: c.IP(),
 			},
-			c.Name(),
+			Name: c.Name(),
 
-			Message{
-				c.Timestamp(),
-				c.MessageText(),
+			Message: Message{
+				Timestamp:   c.Timestamp(),
+				MessageText: c.MessageText(),
 			},
 		}
 	)
@@ -149,7 +149,7 @@ func (c *Client) ObjectToJson() (jsonData []byte) {
 	if jsonErr != nil {
 		log.Fatal("Error: ", jsonErr)
 	}
-	fmt.Println("Will be send:\n ", string(jsonData))
+	fmt.Println("Will be send (string):\n ", string(jsonData))
 
 	return jsonData
 }
