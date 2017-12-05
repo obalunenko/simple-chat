@@ -41,18 +41,22 @@ func receiveData(conn net.Conn) []byte {
 
 	}
 
-	/*var jsonData []byte
-	copy(jsonData, jsonDataTemp)
+	var jsonData []byte
+	fmt.Printf("len=%d cap=%d %v\n", len(jsonData), cap(jsonData), jsonData)
 	for i := 0; i < (len(jsonData)); i++ {
-		if jsonData[i] == 0 {
-			jsonData = jsonData[0 : len(jsonData)-1]
+		fmt.Println("Current element is: ", jsonDataTemp[i])
+
+		if jsonDataTemp[i] == 0 {
+			jsonData = jsonData[0:i]
 
 		}
+		jsonData = append(jsonData, jsonDataTemp[i])
+		fmt.Printf("len=%d cap=%d %v\n", len(jsonData), cap(jsonData), jsonData)
 
-	}*/
+	}
 
-	fmt.Println("Data received ([] byte):\n ", jsonDataTemp)
-	fmt.Println("Data received (string):\n ", string(jsonDataTemp))
+	fmt.Println("Data received ([] byte):\n ", jsonData)
+	fmt.Println("Data received (string):\n ", string(jsonData))
 
-	return jsonDataTemp
+	return jsonData
 }
