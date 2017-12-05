@@ -7,13 +7,13 @@ type clientJsonType struct {
 	Message `json:"message"`
 }
 
-// Address
+// Address nested struct for ClientJsonType
 type Address struct {
 	IP   string `json:"ip"`
 	Port string `json:"port"`
 }
 
-// Message
+// Message nested struct for ClientJsonType
 type Message struct {
 	Timestamp   string `json:"timestamp"`
 	MessageText string `json:"messageText"`
