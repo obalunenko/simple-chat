@@ -24,7 +24,7 @@ func RunGuest(ip string) {
 
 	if dialErr != nil {
 
-		log.Fatal("Error: ", dialErr)
+		log.Fatal("RunGuest(ip string): Error at net.Dial: ", dialErr)
 
 	}
 
@@ -43,7 +43,10 @@ func handleGuest(conn net.Conn, guest *chatTypes.Client) {
 
 	jsonData := receiveData(conn)
 
-	fmt.Println("Received data in string: ", string(jsonData))
+	//fmt.Println("Received data in string: ", string(jsonData))
+	addressee := new(chatTypes.Client)
+	addressee = addressee.ObjectFromJson(jsonData)
+	fmt.Printf("%s - message from %s: %s\n", addressee.Timestamp(), addressee.Name(), addressee.MessageText())
 
 }
 

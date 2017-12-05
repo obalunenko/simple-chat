@@ -26,7 +26,7 @@ func RunHost(ip string) {
 	defer closeListening(listener)
 
 	if listenerErr != nil {
-		log.Fatal("Error: ", listenerErr)
+		log.Fatal("RunHost(ip string): Error at net.Listen: ", listenerErr)
 	}
 
 	fmt.Println("Listening on: ", host.Address())
@@ -35,7 +35,7 @@ func RunHost(ip string) {
 	defer closeConnection(conn)
 
 	if acceptErr != nil {
-		log.Fatal("Error: ", acceptErr)
+		log.Fatal("RunHost(ip string): Error at listener.Accept(): ", acceptErr)
 	}
 
 	fmt.Println("New connection accepted: ", conn)
@@ -51,7 +51,11 @@ func RunHost(ip string) {
 func handleHost(conn net.Conn, host *chatTypes.Client) {
 
 	jsonData := receiveData(conn)
-	fmt.Println("Received data in string: ", string(jsonData))
+	//fmt.Println("Received data in string: ", string(jsonData))
+
+	addressee := new(chatTypes.Client)
+	addressee = addressee.ObjectFromJson(jsonData)
+	fmt.Printf("%s - message from %s: %s\n", addressee.Timestamp(), addressee.Name(), addressee.MessageText())
 
 	host.SetMessage()
 	sendData(host, conn)
