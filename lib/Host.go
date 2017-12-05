@@ -50,7 +50,7 @@ func RunHost(ip string) {
 
 func handleHost(conn net.Conn, host *chatTypes.Client) {
 
-	jsonData := receiveData(host, conn)
+	jsonData := receiveData(conn)
 	fmt.Println("Received data in string: ", string(jsonData))
 
 	host.SetMessage()
