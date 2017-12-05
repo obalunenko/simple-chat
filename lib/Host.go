@@ -1,7 +1,6 @@
 package lib
 
 import (
-	"bufio"
 	"fmt"
 	"log"
 	"net"
@@ -51,17 +50,11 @@ func RunHost(ip string) {
 
 func handleHost(conn net.Conn, host *chatTypes.Client) {
 
-	reader := bufio.NewReader(conn)
-	message, readErr := reader.ReadString('\n')
-	if readErr != nil {
-		log.Fatal("Error: ", readErr)
-	}
-
-	fmt.Println("Message received from", message)
+	jsonData := receiveData(host, conn)
+	fmt.Println("Received data in string: ", string(jsonData))
 
 	host.SetMessage()
-
-	fmt.Fprint(conn, host.Name()+": "+host.Message())
+	sendData(host, conn)
 
 }
 
