@@ -1,7 +1,6 @@
 package lib
 
 import (
-	"bufio"
 	"fmt"
 	"log"
 	"net"
@@ -40,17 +39,11 @@ func handleGuest(conn net.Conn, guest *chatTypes.Client) {
 
 	guest.SetMessage()
 
-	dataToSend := guest.ObjectToJson()
+	sendData(guest, conn)
 
-	fmt.Fprint(conn, guest.Name()+": "+guest.Message())
+	jsonData := receiveData(guest, conn)
 
-	replyReader := bufio.NewReader(conn)
-	replyMessage, replyErr := replyReader.ReadString('\n')
-	if replyErr != nil {
-		log.Fatal("Error: ", replyErr)
-	}
-
-	fmt.Println("Message received from", replyMessage)
+	fmt.Println("Received data in string: ", string(jsonData))
 
 }
 
