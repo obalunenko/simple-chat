@@ -1,3 +1,52 @@
+- 2017-12-05: Fix zero bytes at the end of []byte
+
+- 2017-12-05: attemp to fix not empty values at end of array
+
+- 2017-12-05: attempt to delete 0 values
+
+- 2017-12-05: lib/Guest.go: Info to errors; Compose message from addressee Client obj
+
+- 2017-12-05: lib/chatTypes/ClientType.go: ObjectFormJson; info to errors
+
+- 2017-12-05: lib/Messages.go: Implement receiveData(); Add info to errors
+
+- 2017-12-05: Update CHANGELOG
+
+- 2017-12-05: lib: Refactor delete *client form arguments of receiveData()
+
+- 2017-12-05: lib/Guest.go: refactor to move send/receive func to lib/Messages.go
+
+- 2017-12-05: lib/Host.go: refactor to move send/receive func to lib/Messages.go
+
+- 2017-12-05: lib/chatTypes/ClientType.go: add names of params in struct initialise
+
+- 2017-12-05: lib/chatTypes/CluentJsonType.go add comments to functions
+
+- 2017-12-05: Add binaries to .gitignore
+
+- 2017-12-05: Implement Messages lib functionality. Receive and Send byte arrays
+
+- 2017-12-04: lib/Host.go: Fix spelling errors in comments
+
+- 2017-12-04: lib/chatTypes/ClientType.go: Refactor initialization of clientJsonType object at ObjectToJson() function
+Signed-off-by: Oleg Balunenko <oleg.balunenko@be-mobile.com>
+
+- 2017-12-04: lib: refactoring of package chatTypes import
+
+- 2017-12-04: lib/types: Rename package to chatTypes; split jsonType struct to separate file
+Signed-off-by: Oleg Balunenko <oleg.balunenko@be-mobile.com>
+
+- 2017-12-03: Merge branch 'Return-name-in-message'
+
+- 2017-12-03: Add TODO's
+Signed-off-by: Oleg Balunenko <oleg.balunenko@be-mobile.com>
+
+- 2017-12-03: Refactor to add incapsulate.
+Signed-off-by: Oleg Balunenko <oleg.balunenko@be-mobile.com>
+
+- 2017-12-03: lib/bin: Uodate binaries
+Signed-off-by: Oleg Balunenko <oleg.balunenko@be-mobile.com>
+
 - 2017-12-03: lib/Guest: Refactor to use interfaces for Client
 Signed-off-by: Oleg Balunenko <oleg.balunenko@be-mobile.com>
 

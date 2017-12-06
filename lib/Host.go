@@ -1,42 +1,39 @@
 package lib
 
 import (
-	"bufio"
 	"fmt"
 	"log"
 	"net"
 
-	"github.com/oleg-balunenko/simple-chat/lib/types"
+	"github.com/oleg-balunenko/simple-chat/lib/chatTypes"
 )
 
-// TODO: implement receive and send messagges in JSON format. JSON should contain message and name of client
-
-// TODO: implement websocket instead of TCP connection
+// TODO: implement web-socket instead of TCP connection
 
 // RunHost takes an ip as an argument "-listen"
 // and listens for connections on the ip in argument
 func RunHost(ip string) {
 
-	host := new(types.Client)
+	host := new(chatTypes.Client)
 
 	host.SetAddress(ip)
 	host.SetName()
 
-	listener, listenerErr := net.Listen("tcp", host.GetAddress())
+	listener, listenerErr := net.Listen("tcp", host.Address())
 
 	defer closeListening(listener)
 
 	if listenerErr != nil {
-		log.Fatal("Error: ", listenerErr)
+		log.Fatal("RunHost(ip string): Error at net.Listen: ", listenerErr)
 	}
 
-	fmt.Println("Listening on: ", host.GetAddress())
+	fmt.Println("Listening on: ", host.Address())
 
 	conn, acceptErr := listener.Accept()
 	defer closeConnection(conn)
 
 	if acceptErr != nil {
-		log.Fatal("Error: ", acceptErr)
+		log.Fatal("RunHost(ip string): Error at listener.Accept(): ", acceptErr)
 	}
 
 	fmt.Println("New connection accepted: ", conn)
@@ -49,19 +46,16 @@ func RunHost(ip string) {
 
 }
 
-func handleHost(conn net.Conn, host *types.Client) {
+func handleHost(conn net.Conn, host *chatTypes.Client) {
 
-	reader := bufio.NewReader(conn)
-	message, readErr := reader.ReadString('\n')
-	if readErr != nil {
-		log.Fatal("Error: ", readErr)
-	}
+	jsonData := receiveData(conn)
 
-	fmt.Println("Message received from", message)
+	addressee := new(chatTypes.Client)
+	addressee.ObjectFromJson(jsonData)
+	addressee.Message()
 
 	host.SetMessage()
-
-	fmt.Fprint(conn, host.Name()+": "+host.GetMessage())
+	sendData(host, conn)
 
 }
 
