@@ -113,9 +113,9 @@ func (c *Client) MessageText() string {
 // SetTimestamp function set current timestamp for each message
 func (c *Client) setTimestamp() {
 
-	var timestampLayout = "01-02-2006 15:46:02"
 	t := time.Now()
-	c.message.timestamp = t.Format(timestampLayout)
+	c.message.timestamp = t.Format("2006-01-02 15:04:05")
+
 }
 
 // Timestamp gives value of message.timestamp field of Client struct
@@ -123,11 +123,11 @@ func (c *Client) Timestamp() string {
 	return c.message.timestamp
 }
 
-// Message gives message with timestamp
-func (c *Client) Message() (message string) {
+// Message gives message with timestamp and name of addressee
+func (c *Client) Message() {
 
-	message = c.message.messageText + "\t\t" + c.message.timestamp
-	return message
+	message := c.Timestamp() + " - message from " + c.Name() + ": " + c.MessageText() + "\n"
+	fmt.Println(message)
 }
 
 // ObjectToJson function creates json from client object
@@ -152,25 +152,19 @@ func (c *Client) ObjectToJson() (jsonData []byte) {
 	if jsonErr != nil {
 		log.Fatal("ObjectToJson(): Error to Marshal: ", jsonErr)
 	}
-	fmt.Println("Will be send ([] byte):\n ", jsonData)
-	fmt.Println("Will be send (string):\n ", string(jsonData))
 
 	return jsonData
 }
 
 // ObjectFromJson creates struct Client from json object
-func (c *Client) ObjectFromJson(jsonData []byte) *Client {
+func (c *Client) ObjectFromJson(jsonData []byte) {
 
 	clientJson := new(clientJsonType)
-
-	fmt.Println("Will be Unmarshall ([]byte): ", jsonData)
-	fmt.Println("Will be Unmarshall (string): ", string(jsonData), "Some text!")
 
 	err := json.Unmarshal(jsonData, &clientJson)
 	if err != nil {
 		log.Fatal("ObjectFromJson(): Error to Unmarshal: ", err)
 	}
-	fmt.Println("Struct from received json byte: ", clientJson)
 
 	c.name = clientJson.Name
 	c.address.ip = clientJson.IP
@@ -178,5 +172,4 @@ func (c *Client) ObjectFromJson(jsonData []byte) *Client {
 	c.message.messageText = clientJson.MessageText
 	c.message.timestamp = clientJson.Timestamp
 
-	return c
 }
