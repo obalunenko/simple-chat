@@ -8,6 +8,8 @@ import (
 	"github.com/oleg-balunenko/simple-chat/lib/chatTypes"
 )
 
+// TODO: implement web-sockets instead of TCP connection
+
 // RunGuest takes an argument ip and connects to host with ip
 func RunGuest(ip string) {
 
