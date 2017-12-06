@@ -8,7 +8,7 @@ import (
 	"github.com/oleg-balunenko/simple-chat/lib/chatTypes"
 )
 
-// TODO: implement web-socket instead of TCP connection
+// TODO: implement web-sockets instead of TCP connection
 
 // RunHost takes an ip as an argument "-listen"
 // and listens for connections on the ip in argument
