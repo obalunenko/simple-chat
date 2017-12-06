@@ -1,3 +1,33 @@
+- 2017-12-06: Move Changelog tp root dir
+
+- 2017-12-06: Update Changelog
+
+- 2017-12-06: Merge branch 'json-tcp'
+
+- 2017-12-06: lib/Messages.go: Remove debug info
+Signed-off-by: Oleg Balunenko <oleg.balunenko@be-mobile.com>
+
+- 2017-12-06: lib/Host.go: Use Message() composer to view message. Remove TODO
+Signed-off-by: Oleg Balunenko <oleg.balunenko@be-mobile.com>
+
+- 2017-12-06: lib/Guest.go: Use Message() composer to view message. Remove TODO
+Signed-off-by: Oleg Balunenko <oleg.balunenko@be-mobile.com>
+
+- 2017-12-06: lib/chatTypes/ClientType.go: Fix timestamp format. Implement Message() composer. Remove debug info
+Signed-off-by: Oleg Balunenko <oleg.balunenko@be-mobile.com>
+
+- 2017-12-05: Fix zero bytes at the end of []byte
+
+- 2017-12-05: attemp to fix not empty values at end of array
+
+- 2017-12-05: attempt to delete 0 values
+
+- 2017-12-05: lib/Guest.go: Info to errors; Compose message from addressee Client obj
+
+- 2017-12-05: lib/chatTypes/ClientType.go: ObjectFormJson; info to errors
+
+- 2017-12-05: lib/Messages.go: Implement receiveData(); Add info to errors
+
 - 2017-12-05: Update CHANGELOG
 
 - 2017-12-05: lib: Refactor delete *client form arguments of receiveData()
