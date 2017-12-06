@@ -2,7 +2,6 @@ package lib
 
 import (
 	"bytes"
-	"fmt"
 	"log"
 	"net"
 
@@ -15,12 +14,7 @@ func sendData(c *chatTypes.Client, conn net.Conn) {
 	jsonDataToSend := make([]byte, 500)
 	jsonDataToSend = c.ObjectToJson()
 
-	//fmt.Println("Length of []byte object:", len(jsonDataToSend))
-
-	//fmt.Println("Will be send: ", string(jsonDataToSend))
-
 	conn.Write(jsonDataToSend)
-	//fmt.Println("Data sent...")
 }
 
 // receiveData receives byte array from connection net.Conn
@@ -43,9 +37,6 @@ func receiveData(conn net.Conn) []byte {
 	}
 
 	jsonData = bytes.Trim(jsonData, "\x00")
-
-	fmt.Println("Data received ([] byte):\n ", jsonData)
-	fmt.Println("Data received (string):\n ", string(jsonData))
 
 	return jsonData
 }
