@@ -8,8 +8,6 @@ import (
 	"github.com/oleg-balunenko/simple-chat/lib/chatTypes"
 )
 
-// TODO: implement receive and send messages in JSON format. JSON should contain message and name of client
-
 // RunGuest takes an argument ip and connects to host with ip
 func RunGuest(ip string) {
 
@@ -43,11 +41,9 @@ func handleGuest(conn net.Conn, guest *chatTypes.Client) {
 
 	jsonData := receiveData(conn)
 
-	//fmt.Println("Received data in string: ", string(jsonData))
 	addressee := new(chatTypes.Client)
-	addressee = addressee.ObjectFromJson(jsonData)
-	fmt.Printf("%s - message from %s: %s\n", addressee.Timestamp(), addressee.Name(), addressee.MessageText())
-
+	addressee.ObjectFromJson(jsonData)
+	addressee.Message()
 }
 
 func closeConnection(connection net.Conn) {

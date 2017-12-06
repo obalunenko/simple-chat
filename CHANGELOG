@@ -1,3 +1,5 @@
+- 2017-12-05: Fix zero bytes at the end of []byte
+
 - 2017-12-05: attemp to fix not empty values at end of array
 
 - 2017-12-05: attempt to delete 0 values
