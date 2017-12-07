@@ -3,8 +3,8 @@ package chatTypes
 import (
 	"bufio"
 	"encoding/json"
+	"errors"
 	"fmt"
-	"log"
 	"os"
 	"strings"
 	"time"
@@ -63,16 +63,19 @@ func (c *Client) Address() (address string) {
 }
 
 // SetName function prompt to enter name of Client
-func (c *Client) SetName() {
+func (c *Client) SetName() (err error) {
 	fmt.Print("Enter your name: ")
 	setNameReader := bufio.NewReader(os.Stdin)
-	nameInput, setNameErr := setNameReader.ReadString('\n')
-	if setNameErr != nil {
-		log.Fatal("SetName(): Error to read input: ", setNameErr)
+	nameInput, err := setNameReader.ReadString('\n')
+	if err != nil {
+		err = errors.New("SetName(): Error to read input: " + err.Error())
+		return err
 	}
 	nameInput = strings.Replace(nameInput, "\n", "", -1)
 	nameInput = strings.Replace(nameInput, "\r", "", -1)
 	c.name = nameInput
+
+	return nil
 
 }
 
@@ -90,20 +93,23 @@ func (c *Client) SetMessage() {
 }
 
 // SetMessageText function prompt to enter text of message
-func (c *Client) setMessageText() {
+func (c *Client) setMessageText() (err error) {
 	fmt.Print("Send message: ")
 	reader := bufio.NewReader(os.Stdin)
 
-	messageInput, readErr := reader.ReadString('\n')
+	messageInput, err := reader.ReadString('\n')
 
-	if readErr != nil {
+	if err != nil {
 
-		log.Fatal("SetMessage(): Error to read input: ", readErr)
+		err = errors.New("SetMessage(): Error to read input: " + err.Error())
+		return err
 	}
 
 	messageInput = strings.Replace(messageInput, "\n", "", -1)
 	messageInput = strings.Replace(messageInput, "\r", "", -1)
 	c.message.messageText = messageInput
+
+	return nil
 
 }
 
@@ -152,7 +158,7 @@ func (c *Client) ObjectToJson() (jsonData []byte, err error) {
 
 	jsonData, jsonErr := json.Marshal(&clientJson)
 	if jsonErr != nil {
-		log.Fatal("ObjectToJson(): Error to Marshal: ", jsonErr)
+		jsonErr = errors.New("ObjectToJson(): Error to Marshal: " + jsonErr.Error())
 		return nil, jsonErr
 	}
 
@@ -166,7 +172,7 @@ func (c *Client) ObjectFromJson(jsonData []byte) error {
 
 	err := json.Unmarshal(jsonData, &clientJson)
 	if err != nil {
-		log.Println("ObjectFromJson(): Error to Unmarshal: ", err)
+		err = errors.New("ObjectFromJson(): Error to Unmarshal: " + err.Error())
 		return err
 	}
 
