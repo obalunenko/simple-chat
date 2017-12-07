@@ -1,7 +1,11 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 0a22fd0... lib/charTypes: Add tests for ClientType.go
+=======
+
+>>>>>>> web-sockets
 {
   "address":{
     "ip":"100.100.100.100",
@@ -11,13 +15,19 @@
   "message":{
     "timestamp":"2017-12-07",
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> web-sockets
     "asdas":"Test Message"
   },
   "some":"invalid"
 }
 
+<<<<<<< HEAD
 =======
     "messageText":"Test Message"
   }
 }
 >>>>>>> 0a22fd0... lib/charTypes: Add tests for ClientType.go
+=======
+>>>>>>> web-sockets

@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> web-sockets
 package chatTypes
 
 import (
@@ -30,6 +33,7 @@ var testClient = Client{
 }
 
 func TestClient_IP(t *testing.T) {
+<<<<<<< HEAD
 =======
 package tests
 
@@ -42,11 +46,14 @@ import (
 
 func TestIP(t *testing.T) {
 >>>>>>> 0a22fd0... lib/charTypes: Add tests for ClientType.go
+=======
+>>>>>>> web-sockets
 
 	g := goblin.Goblin(t)
 
 	g.Describe("#TestIP() ", func() {
 		g.It(" Should return IP of Client", func() {
+<<<<<<< HEAD
 <<<<<<< HEAD
 			expectedResult := testClient.address.ip
 =======
@@ -61,6 +68,9 @@ func TestIP(t *testing.T) {
 				"2017-12-07",
 			)
 >>>>>>> 0a22fd0... lib/charTypes: Add tests for ClientType.go
+=======
+			expectedResult := testClient.address.ip
+>>>>>>> web-sockets
 
 			result := testClient.IP()
 			g.Assert(result).Equal(expectedResult)
@@ -72,6 +82,9 @@ func TestIP(t *testing.T) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> web-sockets
 func TestClient_Port(t *testing.T) {
 	g := goblin.Goblin(t)
 
@@ -92,6 +105,7 @@ func TestClient_Name(t *testing.T) {
 		g.It(" Should return Name of Client", func() {
 
 			expectedResult := testClient.name
+<<<<<<< HEAD
 =======
 func TestName(t *testing.T) {
 	g := goblin.Goblin(t)
@@ -109,6 +123,8 @@ func TestName(t *testing.T) {
 				"2017-12-07",
 			)
 >>>>>>> 0a22fd0... lib/charTypes: Add tests for ClientType.go
+=======
+>>>>>>> web-sockets
 
 			result := testClient.Name()
 			g.Assert(result).Equal(expectedResult)
@@ -117,6 +133,9 @@ func TestName(t *testing.T) {
 	})
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> web-sockets
 
 func TestClient_NewClient(t *testing.T) {
 	g := goblin.Goblin(t)
@@ -198,5 +217,8 @@ func TestClient_ObjectFromJson(t *testing.T) {
 
 	})
 }
+<<<<<<< HEAD
 =======
 >>>>>>> 0a22fd0... lib/charTypes: Add tests for ClientType.go
+=======
+>>>>>>> web-sockets
