@@ -15,7 +15,7 @@ func sendData(c *chatTypes.Client, conn net.Conn) (err error) {
 	jsonDataToSend := make([]byte, 500)
 	jsonDataToSend, err = c.ObjectToJson()
 	if err != nil {
-		err = errors.New("Error at sendData(c Client) at ObjectToJson(): " + err.Error())
+		err = errors.New("Error at sendData(c Client): " + err.Error())
 		return err
 
 	}
