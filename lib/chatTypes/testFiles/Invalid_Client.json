@@ -1,0 +1,23 @@
+<<<<<<< HEAD
+
+=======
+>>>>>>> 0a22fd0... lib/charTypes: Add tests for ClientType.go
+{
+  "address":{
+    "ip":"100.100.100.100",
+    "port":"8080"
+  },
+  "name":"TestName",
+  "message":{
+    "timestamp":"2017-12-07",
+<<<<<<< HEAD
+    "asdas":"Test Message"
+  },
+  "some":"invalid"
+}
+
+=======
+    "messageText":"Test Message"
+  }
+}
+>>>>>>> 0a22fd0... lib/charTypes: Add tests for ClientType.go

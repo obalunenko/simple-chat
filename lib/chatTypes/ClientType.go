@@ -11,19 +11,21 @@ import (
 )
 
 // Client struct
-type Client struct {
-	address struct {
-		// address nested struct that stores info about Ip and Port of Client
-		ip   string
-		port string
+type (
+	Client struct {
+		address struct {
+			// address nested struct that stores info about Ip and Port of Client
+			ip   string
+			port string
+		}
+		name    string
+		message struct {
+			// message nested struct that stores info about Timestamp and MessageText of Client's messages
+			timestamp   string
+			messageText string
+		}
 	}
-	name    string
-	message struct {
-		// message nested struct that stores info about Timestamp and MessageText of Client's messages
-		timestamp   string
-		messageText string
-	}
-}
+)
 
 // IP function gives value of address.ip field of Client struct
 func (c *Client) IP() string {
@@ -131,7 +133,7 @@ func (c *Client) Message() {
 }
 
 // ObjectToJson function creates json from client object
-func (c *Client) ObjectToJson() (jsonData []byte) {
+func (c *Client) ObjectToJson() (jsonData []byte, err error) {
 
 	var (
 		clientJson = clientJsonType{
@@ -151,19 +153,21 @@ func (c *Client) ObjectToJson() (jsonData []byte) {
 	jsonData, jsonErr := json.Marshal(&clientJson)
 	if jsonErr != nil {
 		log.Fatal("ObjectToJson(): Error to Marshal: ", jsonErr)
+		return nil, jsonErr
 	}
 
-	return jsonData
+	return jsonData, nil
 }
 
 // ObjectFromJson creates struct Client from json object
-func (c *Client) ObjectFromJson(jsonData []byte) {
+func (c *Client) ObjectFromJson(jsonData []byte) error {
 
 	clientJson := new(clientJsonType)
 
 	err := json.Unmarshal(jsonData, &clientJson)
 	if err != nil {
-		log.Fatal("ObjectFromJson(): Error to Unmarshal: ", err)
+		log.Println("ObjectFromJson(): Error to Unmarshal: ", err)
+		return err
 	}
 
 	c.name = clientJson.Name
@@ -172,4 +176,14 @@ func (c *Client) ObjectFromJson(jsonData []byte) {
 	c.message.messageText = clientJson.MessageText
 	c.message.timestamp = clientJson.Timestamp
 
+	return nil
+
+}
+
+func (c *Client) NewClient(name string, ip string, port string, messageText string, timestamp string) {
+	c.name = name
+	c.message.messageText = messageText
+	c.message.timestamp = timestamp
+	c.address.port = port
+	c.address.ip = ip
 }
