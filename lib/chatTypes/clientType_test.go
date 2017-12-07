@@ -129,7 +129,7 @@ func TestClient_ObjectFromJson(t *testing.T) {
 		g.It(" Should throw error when invalid json got", func() {
 			newTestClient := new(Client)
 			jsonTestdata, err := ioutil.ReadFile("testFiles/Invalid_Client.json")
-			jsonTestdata = append(jsonTestdata, 0)
+			jsonTestdata = append(jsonTestdata, 0) // add '\x00' to the end of valid file
 			if err != nil {
 				fmt.Println("Error was occured during read from lib/chatTypes/testFiles/Invalid_Client.json: ")
 				g.Fail(err)
@@ -137,8 +137,8 @@ func TestClient_ObjectFromJson(t *testing.T) {
 			}
 
 			var result bool // if error will be returned result will be true
-			err = newTestClient.ObjectFromJson(jsonTestdata)
-			if err != nil {
+
+			if newTestClient.ObjectFromJson(jsonTestdata) != nil {
 
 				result = true
 
@@ -149,6 +149,7 @@ func TestClient_ObjectFromJson(t *testing.T) {
 			expectedResult := true
 
 			g.Assert(result).Equal(expectedResult)
+
 		})
 
 	})
