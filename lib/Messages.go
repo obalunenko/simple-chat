@@ -2,6 +2,7 @@ package lib
 
 import (
 	"bytes"
+	"errors"
 	"log"
 	"net"
 
@@ -9,12 +10,23 @@ import (
 )
 
 // sendData sends byte array of Client to connection net.Conn
-func sendData(c *chatTypes.Client, conn net.Conn) {
+func sendData(c *chatTypes.Client, conn net.Conn) (err error) {
 
 	jsonDataToSend := make([]byte, 500)
-	jsonDataToSend = c.ObjectToJson()
+	jsonDataToSend, err = c.ObjectToJson()
+	if err != nil {
+		err = errors.New("Error at sendData(c Client) at ObjectToJson(): " + err.Error())
+		return err
 
-	conn.Write(jsonDataToSend)
+	}
+
+	_, err = conn.Write(jsonDataToSend)
+	if err != nil {
+		err = errors.New("Error at sendData(c Client) at conn.Write(): " + err.Error())
+		return err
+	}
+
+	return nil
 }
 
 // receiveData receives byte array from connection net.Conn
