@@ -186,6 +186,7 @@ func (c *Client) ObjectFromJson(jsonData []byte) error {
 
 }
 
+// NewClient creates new Client object with parameters from function arguments
 func (c *Client) NewClient(name string, ip string, port string, messageText string, timestamp string) {
 	c.name = name
 	c.message.messageText = messageText
