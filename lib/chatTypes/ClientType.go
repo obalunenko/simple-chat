@@ -144,8 +144,8 @@ func (c *Client) ObjectToJson() (jsonData []byte, err error) {
 	var (
 		clientJson = clientJsonType{
 			Address: Address{
-				IP:   c.Port(),
-				Port: c.IP(),
+				IP:   c.IP(),
+				Port: c.Port(),
 			},
 			Name: c.Name(),
 
