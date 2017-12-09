@@ -48,10 +48,17 @@ func (c *Client) setPort(port string) {
 }
 
 // SetAddress function set Port and IP for client
-func (c *Client) SetAddress(ip string) {
+func (c *Client) SetAddress(ip string) (err error) {
 
-	c.setPort("8080")
-	c.setIP(ip)
+	if ip != "" {
+		c.setPort("8080")
+		c.setIP(ip)
+	} else {
+		err = errors.New("Error at SetAddress: IP could not be empty")
+		return err
+	}
+
+	return err
 
 }
 
