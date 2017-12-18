@@ -2,6 +2,7 @@ package lib
 
 import (
 	"fmt"
+	"io"
 	"log"
 	"net"
 
@@ -16,8 +17,16 @@ func RunHost(ip string) {
 
 	host := new(chatTypes.Client)
 
-	host.SetAddress(ip)
-	host.SetName()
+	err := host.SetAddress(ip)
+	if err != nil {
+		log.Fatal("RunHost(ip string): Error at SetAddress(ip): ", err)
+
+	}
+	err = host.SetName()
+	if err != nil {
+		log.Fatal("RunHost(ip string): Error at SetName(): ", err)
+
+	}
 
 	listener, listenerErr := net.Listen("tcp", host.Address())
 
@@ -46,22 +55,38 @@ func RunHost(ip string) {
 
 }
 
-func handleHost(conn net.Conn, host *chatTypes.Client) {
+func handleHost(conn io.ReadWriter, host *chatTypes.Client) {
 
 	jsonData := receiveData(conn)
 
 	addressee := new(chatTypes.Client)
-	addressee.ObjectFromJson(jsonData)
+	err := addressee.ObjectFromJSON(jsonData)
+	if err != nil {
+
+		log.Fatal("handleHost(conn net.Conn, guest *chatTypes.Client): Error at ObjectFromJSON(jsonData): ", err)
+
+	}
 	addressee.Message()
 
-	host.SetMessage()
-	sendData(host, conn)
+	err = host.SetMessage()
+	if err != nil {
+		log.Fatal("handleHost(conn net.Conn, guest *chatTypes.Client): Error at SetMessage(): ", err)
+	}
+	err = sendData(host, conn)
+	if err != nil {
+
+		log.Fatal("handleHost(conn net.Conn, guest *chatTypes.Client): Error at sendData(guest, conn): ", err)
+
+	}
 
 }
 
-func closeListening(listener net.Listener) {
+func closeListening(listener io.Closer) {
 
 	fmt.Println("Closing the Host listener.....")
-	listener.Close()
+	err := listener.Close()
+	if err != nil {
+		log.Fatal("closeConnection(connection net.Conn): Error at connection.Close(): ", err)
+	}
 
 }

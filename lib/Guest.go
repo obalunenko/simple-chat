@@ -2,6 +2,7 @@ package lib
 
 import (
 	"fmt"
+	"io"
 	"log"
 	"net"
 
@@ -13,8 +14,16 @@ func RunGuest(ip string) {
 
 	guest := new(chatTypes.Client)
 
-	guest.SetAddress(ip)
-	guest.SetName()
+	err := guest.SetAddress(ip)
+	if err != nil {
+		log.Fatal("RunGuest(ip string): Error at SetAddress(ip): ", err)
+
+	}
+	err = guest.SetName()
+	if err != nil {
+		log.Fatal("RunGuest(ip string): Error at SetName(): ", err)
+
+	}
 
 	conn, dialErr := net.Dial("tcp", guest.Address())
 
@@ -33,16 +42,29 @@ func RunGuest(ip string) {
 
 }
 
-func handleGuest(conn net.Conn, guest *chatTypes.Client) {
+func handleGuest(conn io.ReadWriter, guest *chatTypes.Client) {
 
-	guest.SetMessage()
+	err := guest.SetMessage()
+	if err != nil {
+		log.Fatal("handleGuest(conn net.Conn, guest *chatTypes.Client): Error at SetMessage(): ", err)
+	}
 
-	sendData(guest, conn)
+	err = sendData(guest, conn)
+	if err != nil {
+
+		log.Fatal("handleGuest(conn net.Conn, guest *chatTypes.Client): Error at sendData(guest, conn): ", err)
+
+	}
 
 	jsonData := receiveData(conn)
 
 	addressee := new(chatTypes.Client)
-	addressee.ObjectFromJson(jsonData)
+	err = addressee.ObjectFromJSON(jsonData)
+	if err != nil {
+
+		log.Fatal("handleGuest(conn net.Conn, guest *chatTypes.Client): Error at ObjectFromJSON(jsonData): ", err)
+
+	}
 	addressee.Message()
 }
 
@@ -50,6 +72,9 @@ func closeConnection(connection net.Conn) {
 
 	fmt.Println("Closing the Guest connection.....")
 
-	connection.Close()
+	err := connection.Close()
+	if err != nil {
+		log.Fatal("closeConnection(connection net.Conn): Error at connection.Close(): ", err)
+	}
 
 }
