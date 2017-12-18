@@ -1,3 +1,33 @@
+- 2017-12-09: lib/chatTypes/ClientType_test.go: add tests
+
+- 2017-12-09: lib//chatTypes/ClientType.go: Refactor to return error on empty ip arg
+
+- 2017-12-08: lib/chatTypes/clientType_test.go: refactor tests to us GoConvey
+
+- 2017-12-08: lib/chatTypes/clientType.go: Add comment to exported function
+
+- 2017-12-08: lib/chatTypes/testFiles: add expected.json for tests
+
+- 2017-12-08: lib/chatTypes/ClientType.go: fix bug in struct init
+
+- 2017-12-07: lib/Messages.go: handle ObjectToJson() error
+
+- 2017-12-07: lib/chatTypes/clientType_test.go: update tests
+
+- 2017-12-07: lib/chatTypes/Client.go: return errors from funs instead of log.Fatal
+
+- 2017-12-07: lib/chatTypes: add tests
+
+- 2017-12-07: lib/charTypes: Add tests for ClientType.go
+
+- 2017-12-06: update binaries
+
+- 2017-12-06: Update .gitognore: put binaries on gut track
+
+- 2017-12-06: Remove run-build.sh (will be used common from GOLANG project)
+
+- 2017-12-06: Update changelog
+
 - 2017-12-06: Update run-build.sh
 
 - 2017-12-06: Move Changelog tp root dir
