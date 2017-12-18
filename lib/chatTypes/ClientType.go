@@ -93,10 +93,16 @@ func (c *Client) Name() string {
 }
 
 // SetMessage function set message object:  messageText and Timestamp
-func (c *Client) SetMessage() {
+func (c *Client) SetMessage() (err error) {
 
-	c.setMessageText()
+	err = c.setMessageText()
+	if err != nil {
+		err = errors.New("SetMessage():  " + err.Error())
+		return err
+	}
 	c.setTimestamp()
+
+	return err
 }
 
 // SetMessageText function prompt to enter text of message
@@ -108,7 +114,7 @@ func (c *Client) setMessageText() (err error) {
 
 	if err != nil {
 
-		err = errors.New("SetMessage(): Error to read input: " + err.Error())
+		err = errors.New("SetMessageText(): Error to read input: " + err.Error())
 		return err
 	}
 
@@ -145,11 +151,11 @@ func (c *Client) Message() {
 	fmt.Println(message)
 }
 
-// ObjectToJson function creates json from client object
-func (c *Client) ObjectToJson() (jsonData []byte, err error) {
+// ObjectToJSON function creates json from client object
+func (c *Client) ObjectToJSON() (jsonData []byte, err error) {
 
 	var (
-		clientJson = clientJsonType{
+		clientJSON = clientJSONType{
 			Address: Address{
 				IP:   c.IP(),
 				Port: c.Port(),
@@ -163,31 +169,31 @@ func (c *Client) ObjectToJson() (jsonData []byte, err error) {
 		}
 	)
 
-	jsonData, jsonErr := json.Marshal(&clientJson)
+	jsonData, jsonErr := json.Marshal(&clientJSON)
 	if jsonErr != nil {
-		jsonErr = errors.New("ObjectToJson(): Error to Marshal: " + jsonErr.Error())
+		jsonErr = errors.New("ObjectToJSON(): Error to Marshal: " + jsonErr.Error())
 		return nil, jsonErr
 	}
 
 	return jsonData, nil
 }
 
-// ObjectFromJson creates struct Client from json object
-func (c *Client) ObjectFromJson(jsonData []byte) error {
+// ObjectFromJSON creates struct Client from json object
+func (c *Client) ObjectFromJSON(jsonData []byte) error {
 
-	clientJson := new(clientJsonType)
+	clientJSON := new(clientJSONType)
 
-	err := json.Unmarshal(jsonData, &clientJson)
+	err := json.Unmarshal(jsonData, &clientJSON)
 	if err != nil {
-		err = errors.New("ObjectFromJson(): Error to Unmarshal: " + err.Error())
+		err = errors.New("ObjectFromJSON(): Error to Unmarshal: " + err.Error())
 		return err
 	}
 
-	c.name = clientJson.Name
-	c.address.ip = clientJson.IP
-	c.address.port = clientJson.Port
-	c.message.messageText = clientJson.MessageText
-	c.message.timestamp = clientJson.Timestamp
+	c.name = clientJSON.Name
+	c.address.ip = clientJSON.IP
+	c.address.port = clientJSON.Port
+	c.message.messageText = clientJSON.MessageText
+	c.message.timestamp = clientJSON.Timestamp
 
 	return nil
 
