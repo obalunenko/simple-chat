@@ -151,9 +151,9 @@ func TestClient_MessageText(t *testing.T) {
 
 }
 
-func TestClient_ObjectFromJson(t *testing.T) {
+func TestClient_ObjectFromJSON(t *testing.T) {
 
-	Convey("#TestClient_ObjectFromJson()", t, func() {
+	Convey("#TestClient_ObjectFromJSON()", t, func() {
 		Convey("When valid json got", func() {
 			newTestClient := new(Client)
 			jsonTestdata, err := ioutil.ReadFile("testFiles/Valid_Client.json")
@@ -161,7 +161,7 @@ func TestClient_ObjectFromJson(t *testing.T) {
 				fmt.Println("Error was occured during read from lib/chatTypes/testFiles/Valid_Client.json: ")
 
 			}
-			newTestClient.ObjectFromJson(jsonTestdata)
+			newTestClient.ObjectFromJSON(jsonTestdata)
 			Convey("Should create Client object from valid json", func() {
 
 				So(newTestClient, ShouldResemble, &testClient)
@@ -180,7 +180,7 @@ func TestClient_ObjectFromJson(t *testing.T) {
 
 			Convey("Should throw error when invalid json got", func() {
 
-				So(newTestClient.ObjectFromJson(jsonTestdata), ShouldBeError)
+				So(newTestClient.ObjectFromJSON(jsonTestdata), ShouldBeError)
 
 			})
 
@@ -189,19 +189,19 @@ func TestClient_ObjectFromJson(t *testing.T) {
 	})
 }
 
-func TestClient_ObjectToJson(t *testing.T) {
-	Convey("#TestClient_ObjectToJson()", t, func() {
+func TestClient_ObjectToJSON(t *testing.T) {
+	Convey("#TestClient_ObjectToJSON()", t, func() {
 
 		Convey("Should convert Client object to json byte array", func() {
-			resultJson, _ := testClient.ObjectToJson()
+			resultJSON, _ := testClient.ObjectToJSON()
 
-			expectedJson, err := ioutil.ReadFile("testFiles/expected.json")
+			expectedJSON, err := ioutil.ReadFile("testFiles/expected.json")
 
 			if err != nil {
 				fmt.Println("Error was occured during read from lib/chatTypes/testFiles/Invalid_Client.json: ")
 
 			}
-			So(resultJson, ShouldResemble, expectedJson)
+			So(resultJSON, ShouldResemble, expectedJSON)
 
 		})
 

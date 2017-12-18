@@ -1,7 +1,7 @@
 package chatTypes
 
-// ClientJsonType is used for json view of Client struct
-type clientJsonType struct {
+// ClientJSONType is used for json view of Client struct
+type clientJSONType struct {
 	Address `json:"address"`
 	Name    string `json:"name"`
 	Message `json:"message"`
