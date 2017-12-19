@@ -1,3 +1,11 @@
+- 2017-12-18: Update binaries
+
+- 2017-12-18: lib/chatTypes: fix linter warnings
+
+- 2017-12-18: lib/chatTypes: add error checks (fix linter warnings)
+
+- 2017-12-18: lib: add error checks (fix linter warnings)
+
 - 2017-12-09: lib/chatTypes/ClientType_test.go: add tests
 
 - 2017-12-09: lib//chatTypes/ClientType.go: Refactor to return error on empty ip arg
