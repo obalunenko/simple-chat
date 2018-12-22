@@ -13,19 +13,26 @@ import (
 	"github.com/oleg-balunenko/simple-chat/client"
 )
 
-var isHost bool
-var ip string
-var port string
+var ( // flags
+	isHost = flag.Bool("listen", false, "Listens on the specified ip address")
+	ip     = flag.String("ip", "", "server machine ip")
+	port   = flag.String("port", "8080", "server port")
+)
+
+var (
+	version string
+	build   string
+	commit  string
+)
 
 func main() {
 
-	flag.BoolVar(&isHost, "listen", false, "Listens on the specified ip address")
-	flag.StringVar(&ip, "ip", "", "server machine ip")
-	flag.StringVar(&port, "port", "8080", "server port")
+	fmt.Printf("Version info: %s:%s\n", version, build)
+	fmt.Printf("commit: %s\n", commit)
 
 	flag.Parse()
 
-	if ip == "" {
+	if *ip == "" {
 		log.Fatalf("Server IP is not specified")
 	}
 
@@ -34,7 +41,7 @@ func main() {
 		log.Fatalf("Failed create client: %v", err)
 	}
 
-	cl := client.New(isHost, ip, port, name)
+	cl := client.New(*isHost, *ip, *port, name)
 
 	if err := cl.Run(); err != nil {
 		log.Fatal(err)
