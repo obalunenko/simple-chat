@@ -6,6 +6,8 @@ import (
 	"net"
 	"strings"
 
+	"github.com/pkg/errors"
+
 	"github.com/oleg-balunenko/simple-chat/message"
 )
 
@@ -38,62 +40,72 @@ func (h Host) Address() string {
 // TODO: implement web-socket instead of TCP connection
 
 // Run start chat session for host
-func (h Host) Run() {
+func (h Host) Run() error {
 	var err error
 
 	h.listener, err = net.Listen("tcp", h.Address())
 	if err != nil {
-		log.Fatal("RunHost(ip string): Error at net.Listen: ", err)
+		return errors.Wrap(err, "client/host: Run()")
 	}
 
 	h.connection, err = h.listener.Accept()
 	fmt.Println("Listening on: ", h.Address())
 	if err != nil {
-		log.Fatal("RunHost(ip string): Error at listener.Accept(): ", err)
+
+		return errors.Wrap(err, "client/host: Run()")
 	}
 
-	defer h.Close()
+	defer func() {
+		if err := h.Close(); err != nil {
+			log.Fatalf("Failed to close host connection: %v", err)
+		}
+	}()
+
 	fmt.Println("New connection accepted: ", h.connection)
 
 	for {
-		h.Handle()
+		if err := h.Handle(); err != nil {
+			return errors.Wrap(err, "client/host: Run()")
+		}
 	}
 
 }
 
 // Handle handles process of receiving and sending messages
-func (h *Host) Handle() {
+func (h *Host) Handle() error {
 
-	h.message.Receive(h.connection)
+	if err := h.message.Receive(h.connection); err != nil {
+		return errors.Wrap(err, "client/host: Handle")
+	}
 
 	h.message.String()
 
 	err := h.message.SetMessage(h.Name)
 	if err != nil {
-		log.Fatal("handleHost(conn net.Conn, guest *chatTypes.Message): Error at SetMessage(): ", err)
+		return errors.Wrap(err, "client/host: Handle")
 	}
 	err = h.message.Send(h.connection)
 	if err != nil {
 
-		log.Fatal("handleHost(conn net.Conn, guest *chatTypes.Message): Error at sendData(guest, conn): ", err)
+		return errors.Wrap(err, "client/host: Handle")
 
 	}
+	return nil
 
 }
 
 // Close closes host session
-func (h *Host) Close() {
+func (h *Host) Close() error {
 
 	fmt.Println("Closing the Guest connection.....")
 
 	err := h.connection.Close()
 	if err != nil {
-		log.Fatal("closeConnection(connection net.Conn): Error at connection.Close(): ", err)
+		return err
 	}
 	fmt.Println("Closing the Host listener.....")
 	err = h.listener.Close()
-	if err != nil {
-		log.Fatal("closeConnection(connection net.Conn): Error at connection.Close(): ", err)
-	}
+
+	return err
 
 }
