@@ -1,18 +1,18 @@
-package lib
+package guest
 
 import (
 	"fmt"
+	"github.com/oleg-balunenko/simple-chat/chat/message"
+	"github.com/oleg-balunenko/simple-chat/chat/types"
 	"io"
 	"log"
 	"net"
-
-	"github.com/oleg-balunenko/simple-chat/lib/chatTypes"
 )
 
 // RunGuest takes an argument ip and connects to host with ip
-func RunGuest(ip string) {
+func Run(ip string) {
 
-	guest := new(chatTypes.Client)
+	guest := new(types.Client)
 
 	err := guest.SetAddress(ip)
 	if err != nil {
@@ -25,7 +25,7 @@ func RunGuest(ip string) {
 
 	}
 
-	conn, dialErr := net.Dial("tcp", guest.Address())
+	conn, dialErr := net.Dial("tcp", guest.AddressString())
 
 	defer closeConnection(conn)
 
@@ -42,30 +42,30 @@ func RunGuest(ip string) {
 
 }
 
-func handleGuest(conn io.ReadWriter, guest *chatTypes.Client) {
+func handleGuest(conn io.ReadWriter, guest *types.Client) {
 
 	err := guest.SetMessage()
 	if err != nil {
 		log.Fatal("handleGuest(conn net.Conn, guest *chatTypes.Client): Error at SetMessage(): ", err)
 	}
 
-	err = sendData(guest, conn)
+	err = message.Send(guest, conn)
 	if err != nil {
 
 		log.Fatal("handleGuest(conn net.Conn, guest *chatTypes.Client): Error at sendData(guest, conn): ", err)
 
 	}
 
-	jsonData := receiveData(conn)
+	jsonData := message.Receive(conn)
 
-	addressee := new(chatTypes.Client)
+	addressee := new(types.Client)
 	err = addressee.ObjectFromJSON(jsonData)
 	if err != nil {
 
 		log.Fatal("handleGuest(conn net.Conn, guest *chatTypes.Client): Error at ObjectFromJSON(jsonData): ", err)
 
 	}
-	addressee.Message()
+	addressee.MessageString()
 }
 
 func closeConnection(connection net.Conn) {

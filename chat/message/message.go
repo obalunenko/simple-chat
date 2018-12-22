@@ -1,16 +1,15 @@
-package lib
+package message
 
 import (
 	"bytes"
 	"errors"
+	"github.com/oleg-balunenko/simple-chat/chat/types"
 	"io"
 	"log"
-
-	"github.com/oleg-balunenko/simple-chat/lib/chatTypes"
 )
 
 // sendData sends byte array of Client to connection net.Conn
-func sendData(c *chatTypes.Client, conn io.Writer) (err error) {
+func Send(c *types.Client, conn io.Writer) (err error) {
 
 	jsonDataToSend := make([]byte, 500)
 	jsonDataToSend, err = c.ObjectToJSON()
@@ -30,7 +29,7 @@ func sendData(c *chatTypes.Client, conn io.Writer) (err error) {
 }
 
 // receiveData receives byte array from connection net.Conn
-func receiveData(conn io.Reader) []byte {
+func Receive(conn io.Reader) []byte {
 
 	dataReceived := false
 

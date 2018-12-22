@@ -6,6 +6,6 @@
   "name":"TestName",
   "message":{
     "timestamp":"2017-12-07",
-    "messageText":"Test Message"
+    "text":"Test Message"
   }
 }

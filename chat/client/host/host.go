@@ -1,21 +1,21 @@
-package lib
+package host
 
 import (
 	"fmt"
+	"github.com/oleg-balunenko/simple-chat/chat/message"
+	"github.com/oleg-balunenko/simple-chat/chat/types"
 	"io"
 	"log"
 	"net"
-
-	"github.com/oleg-balunenko/simple-chat/lib/chatTypes"
 )
 
 // TODO: implement web-socket instead of TCP connection
 
 // RunHost takes an ip as an argument "-listen"
 // and listens for connections on the ip in argument
-func RunHost(ip string) {
+func Run(ip string) {
 
-	host := new(chatTypes.Client)
+	host := new(types.Client)
 
 	err := host.SetAddress(ip)
 	if err != nil {
@@ -28,7 +28,7 @@ func RunHost(ip string) {
 
 	}
 
-	listener, listenerErr := net.Listen("tcp", host.Address())
+	listener, listenerErr := net.Listen("tcp", host.AddressString())
 
 	defer closeListening(listener)
 
@@ -36,7 +36,7 @@ func RunHost(ip string) {
 		log.Fatal("RunHost(ip string): Error at net.Listen: ", listenerErr)
 	}
 
-	fmt.Println("Listening on: ", host.Address())
+	fmt.Println("Listening on: ", host.AddressString())
 
 	conn, acceptErr := listener.Accept()
 	defer closeConnection(conn)
@@ -55,24 +55,24 @@ func RunHost(ip string) {
 
 }
 
-func handleHost(conn io.ReadWriter, host *chatTypes.Client) {
+func handleHost(conn io.ReadWriter, host *types.Client) {
 
-	jsonData := receiveData(conn)
+	jsonData := message.Receive(conn)
 
-	addressee := new(chatTypes.Client)
+	addressee := new(types.Client)
 	err := addressee.ObjectFromJSON(jsonData)
 	if err != nil {
 
 		log.Fatal("handleHost(conn net.Conn, guest *chatTypes.Client): Error at ObjectFromJSON(jsonData): ", err)
 
 	}
-	addressee.Message()
+	addressee.MessageString()
 
 	err = host.SetMessage()
 	if err != nil {
 		log.Fatal("handleHost(conn net.Conn, guest *chatTypes.Client): Error at SetMessage(): ", err)
 	}
-	err = sendData(host, conn)
+	err = message.Send(host, conn)
 	if err != nil {
 
 		log.Fatal("handleHost(conn net.Conn, guest *chatTypes.Client): Error at sendData(guest, conn): ", err)
@@ -85,6 +85,17 @@ func closeListening(listener io.Closer) {
 
 	fmt.Println("Closing the Host listener.....")
 	err := listener.Close()
+	if err != nil {
+		log.Fatal("closeConnection(connection net.Conn): Error at connection.Close(): ", err)
+	}
+
+}
+
+func closeConnection(connection net.Conn) {
+
+	fmt.Println("Closing the Guest connection.....")
+
+	err := connection.Close()
 	if err != nil {
 		log.Fatal("closeConnection(connection net.Conn): Error at connection.Close(): ", err)
 	}
