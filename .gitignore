@@ -13,6 +13,8 @@
 .glide/
 
 \.idea/
+\bin/
+\*.out/
 
 
 

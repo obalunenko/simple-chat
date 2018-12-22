@@ -1,31 +1,57 @@
 package main
 
 import (
+	"bufio"
 	"flag"
+	"fmt"
 	"log"
+	"os"
+	"strings"
 
-	"github.com/oleg-balunenko/simple-chat/lib"
+	"github.com/pkg/errors"
+
+	"github.com/oleg-balunenko/simple-chat/client"
 )
 
+var isHost bool
+var ip string
+var port string
+
 func main() {
-	var isHost bool
 
 	flag.BoolVar(&isHost, "listen", false, "Listens on the specified ip address")
+	flag.StringVar(&ip, "ip", "", "server machine ip")
+	flag.StringVar(&port, "port", "8080", "server port")
+
 	flag.Parse()
-	if len(flag.Args()) < 1 {
-		log.Fatal("Error:ip address not specified")
-	}
-	connIP := flag.Args()[0]
 
-	if isHost {
-		// go run  main.go  -listen <ip>
-
-		lib.RunHost(connIP)
-
-	} else {
-		// go run main.go  <ip>
-
-		lib.RunGuest(connIP)
+	if ip == "" {
+		log.Fatalf("Server IP is not specified")
 	}
 
+	name, err := setName()
+	if err != nil {
+		log.Fatalf("Failed create client: %v", err)
+	}
+
+	cl := client.New(isHost, ip, port, name)
+
+	if err := cl.Run(); err != nil {
+		log.Fatal(err)
+	}
+
+}
+
+func setName() (string, error) {
+
+	fmt.Print("Enter your Name: ")
+	setNameReader := bufio.NewReader(os.Stdin)
+	nameInput, err := setNameReader.ReadString('\n')
+	if err != nil {
+		err = errors.New("SetName(): Error to read input: " + err.Error())
+		return "", err
+	}
+	nameInput = strings.Replace(nameInput, "\n", "", -1)
+	nameInput = strings.Replace(nameInput, "\r", "", -1)
+	return nameInput, nil
 }
