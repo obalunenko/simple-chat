@@ -36,7 +36,9 @@ func main() {
 
 	cl := client.New(isHost, ip, port, name)
 
-	cl.Run()
+	if err := cl.Run(); err != nil {
+		log.Fatal(err)
+	}
 
 }
 
