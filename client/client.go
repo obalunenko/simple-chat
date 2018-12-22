@@ -7,10 +7,10 @@ import (
 
 // Client interface contract for chat clients
 type Client interface {
-	Run()
+	Run() error
 	Address() string
-	Handle()
-	Close()
+	Handle() error
+	Close() error
 }
 
 // New returns new Client type according to isHost parameter
