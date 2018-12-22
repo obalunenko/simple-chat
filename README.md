@@ -24,6 +24,7 @@
         <img src="https://img.shields.io/badge/artifacts-download-blue.svg" alt ="Latest release artifacts"></img>
     </a>
 </p>
+
 # simple-chat
 
 Chat application that allows to send messages between host and guest users
