@@ -12,6 +12,8 @@ import (
 	"github.com/oleg-balunenko/simple-chat/message"
 )
 
+const prefix = "client/host"
+
 // Host implements Client interface
 type Host struct {
 	IP         string
@@ -42,18 +44,19 @@ func (h Host) Address() string {
 
 // Run start chat session for host
 func (h Host) Run() error {
+	var funcName = "Run()"
 	var err error
 
 	h.listener, err = net.Listen("tcp", h.Address())
 	if err != nil {
-		return errors.Wrap(err, "client/host: Run()")
+		return errors.Wrap(err, strings.Join([]string{prefix, funcName}, ":"))
 	}
 
 	h.connection, err = h.listener.Accept()
 	fmt.Println("Listening on: ", h.Address())
 	if err != nil {
 
-		return errors.Wrap(err, "client/host: Run()")
+		return errors.Wrap(err, strings.Join([]string{prefix, funcName}, ":"))
 	}
 
 	defer func() {
@@ -66,7 +69,7 @@ func (h Host) Run() error {
 
 	for {
 		if err := h.Handle(); err != nil {
-			return errors.Wrap(err, "client/host: Run()")
+			return errors.Wrap(err, strings.Join([]string{prefix, funcName}, ":"))
 		}
 	}
 
@@ -74,21 +77,22 @@ func (h Host) Run() error {
 
 // Handle handles process of receiving and sending messages
 func (h *Host) Handle() error {
+	var funcName = "Handle()"
 
 	if err := h.message.Receive(h.connection); err != nil {
-		return errors.Wrap(err, "client/host: Handle")
+		return errors.Wrap(err, strings.Join([]string{prefix, funcName}, ":"))
 	}
 
 	fmt.Println(h.message.String())
 
 	err := h.message.SetMessage(h.Name, os.Stdin)
 	if err != nil {
-		return errors.Wrap(err, "client/host: Handle")
+		return errors.Wrap(err, strings.Join([]string{prefix, funcName}, ":"))
 	}
 	err = h.message.Send(h.connection)
 	if err != nil {
 
-		return errors.Wrap(err, "client/host: Handle")
+		return errors.Wrap(err, strings.Join([]string{prefix, funcName}, ":"))
 
 	}
 	return nil
