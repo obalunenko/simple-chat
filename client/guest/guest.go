@@ -6,6 +6,8 @@ import (
 	"net"
 	"strings"
 
+	"github.com/pkg/errors"
+
 	"github.com/oleg-balunenko/simple-chat/message"
 )
 
@@ -34,52 +36,56 @@ func (g Guest) Address() string {
 }
 
 // Run start chat session for guest
-func (g Guest) Run() {
+func (g Guest) Run() error {
 
-	conn, dialErr := net.Dial("tcp", g.Address())
+	conn, err := net.Dial("tcp", g.Address())
 	g.connection = conn
-	if dialErr != nil {
-
-		log.Fatal("RunGuest(ip string): Error at net.Dial: ", dialErr)
-
+	if err != nil {
+		log.Fatal("RunGuest(ip string): Error at net.Dial: ", err)
+		return errors.Wrap(err, "client/guest: Run")
 	}
-	defer g.Close()
+	defer func() {
+		if err := g.Close(); err != nil {
+			log.Fatalf("Failed to close guest connection: %v", err)
+		}
+	}()
 
 	for {
-
-		g.Handle()
+		if err := g.Handle(); err != nil {
+			return errors.Wrap(err, "client/guest: Run()")
+		}
 	}
 
 }
 
 // Handle handles process of receiving and sending messages
-func (g *Guest) Handle() {
+func (g *Guest) Handle() error {
 
 	err := g.message.SetMessage(g.Name)
 	if err != nil {
-		log.Fatal("handleGuest(conn net.Conn, guest *chatTypes.Message): Error at SetMessage(): ", err)
+		return errors.Wrap(err, "client/guest: Handle")
 	}
 
 	err = g.message.Send(g.connection)
 	if err != nil {
 
-		log.Fatal("handleGuest(conn net.Conn, guest *chatTypes.Message): Error at sendData(guest, conn): ", err)
+		return errors.Wrap(err, "client/guest: Handle")
 
 	}
 
-	g.message.Receive(g.connection)
+	if err := g.message.Receive(g.connection); err != nil {
+		return errors.Wrap(err, "client/guest: Handle")
+	}
 
 	g.message.String()
+	return nil
 }
 
 // Close closes guest session
-func (g *Guest) Close() {
+func (g *Guest) Close() error {
 
 	fmt.Println("Closing the Guest connection.....")
 
 	err := g.connection.Close()
-	if err != nil {
-		log.Fatal("closeConnection(connection net.Conn): Error at connection.Close(): ", err)
-	}
-
+	return err
 }
