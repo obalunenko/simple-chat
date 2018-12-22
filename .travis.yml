@@ -1,0 +1,102 @@
+language: go
+dist: trusty
+sudo: false
+install: true
+env:
+  global:
+  - MYAPP=simple-chat
+  - MYEMAIL=oleg.balunenko@gmail.com
+  - secure: ZJGTEnli+nYKHEIVzm8VhnQmXcJTEHLy+AR1ycrOSCoBJvIgc3k+FOLvctSzwDMWtH6JOkuppocNn5F0XPQViHjb3WPyJ0rTsHp67LysDKSnnYSHJZqQ3q3acPR3m7PAeNg7bnba3yFAIpHa3gGSQp0Y80Yf2NwhyTqRwUGcihso8YZ+ZyFal/u6EETt/LHtGuPoEYKE6Z2IS3vTj5ky6fVyIF3thfUMTu+dlHubyucaYlPmFH6saBTn4DH/+aHoZdGazFymMV80olvjVTOj6u6up8dblfE0T1iUyTgCqC0JXDFlTaFecTAKdALPiHlqyST6lM/WOV3gred480ELJsyuC2+a9EqnfTR9u5tDiXBowdmEZlmd3PIK5RwTK531sMVD0inP5aYwJID0jdjKPw9R3ohC8b+1t9dX7viJ6vX4ow5r2DiKTxxwCeTwBC8oK0H0HNU7IS0gRSiQ8Ty5/8cCMYFV+q2lDxqDRE3l7dydgG3ttf/h8zeDfOua3odaKjWJCUePCYHDBdK6VBSw2yoV7OI98jBRrxMObqsZ4HtFbKKcOK4HMn6IVNQtB2vjxvyPC5Xm4ar+at2VsCrd7/mngKz6a4KjkUzZWGgAwISa0ewRcNpDtoLKa8pXsb5sX1DCYFLFfAK4opu4Ok24CPV5YEYYVy5mfpw1wWQvdYo=
+  - secure: VuDPMKu4YV3ZXwSprDms0pw3Ask0ExyET8Kuneusc3rPlwrIlOLNCk4pC6kX7Epsl8636VVcP7tWWP+26jfEJetm5t/6R5YasTBEe215cdE8KJwXZrmvG61Eyazz+SYbmHyUu1SuHKr+oJdXrjm9AhNVwfZMsdMU581ThW2yOnb4J3tOzeiSsPy12Ai27EQcu1c2eVb9Cm75f2PKdSj+T3YXj50VF9SqyQue/VbuY3JO+iGwMIdBidtEWv3cm0ORzTrasCfgMK7rGtuENsaAZG3hQ6QHarn1YP5qohfe5fGBAcf7u4LNsXEWP/kEbuvsS2h9hVFN3fX2ITPtcFemazY3bRpclsRwcEGZdz/kLWIS3aRb0ajWN1ufQ0T9YO8+xk4H7qXgEEnZmfRRi1H+kYMnNLh+HSzxNNlD39dYGqqcIwk2BleAwPznWIQ3zrsJqH4gS+wVfqQhpGvMRt4j+GzBdDdFGarRp/nzXSW5QNzDQLE5I6GydMgr6SwFYC7xQ7mDKUJiE4Qj7g2pTrLJ3+W/GTKURTGXkUa4wmPvC1EIdxhn4MwnYvNMyrdJ8frytSbqOMQnmH/qUT0V3c0mmcWBC7LGvBjjKxInDYEC5A7Z4xnd1JcnwgIYKXOFlG8mvcL+rLKxR7FlX7fsjO85H38vjSUHX5bC+PTbofgpLso=
+  - secure: o65JQCKqrtXTqSmCVcUt36glmeZzdn/ANATONQBrTYkyxdOhbuo9YfFnK+KHRNkOQ7AeeUg3Lpv+JlUXh0u6rUaZfvyNgGrRrjdBpMj66NU9I/CEQGH1MDojFsiBEdVIje0Tpi6neoCO3SvZxoytM/Qv21TaoTePRluTMABokch52Aj0KT60x2BBkV1UmZm96qF9lNUVnOxAF5nwuu8l89Yh+uaZDhDf+fUx0MB9XEhLyjhg6QhINs695OKB7soWDrGmXFGvC7iLUL19P/4SB2fNmqUABQoUbGkmyzY2HdBqQscIkfnACQUuoeV5kapQkos4PMQVzVnau1ldY7GMAbMNYKcTy6vQnRaDDBqXpzhFaRS6+ue1LsgV5OaYPGGMkJmHREfBHFN/cOfr3GAcyJ4wzR+YDQpH1HdqI0V9FYg5vYpYddEZHVYy2FvNpXMxWpWrzFpQPAaWotRJP2/7pi6tZkGpJdzxqBrxncm16LNcI0GDks0bG3LveB59zeF33M5X3iM8EAVXvGsrGLHegzwCGpFAzWZbfUugVVlDAp8ghsMyRwHn4npQvJjeEgT0drb6vzyV1EkaTrcuQyE2nq683kdGh2XZzwLaUj6eMghnzzEs/9XFO47UbG93+W9BAV/mPW63oqQaHhwsxl8KoWd2c4wCC836C698h1NEvw4=
+jobs:
+  include:
+  - stage: Unit Tests
+    go:
+    - 1.11.x
+    os:
+    - osx
+    script:
+    - env GO111MODULE=off
+    - echo "Run unit tests..."
+    - go get golang.org/x/tools/cmd/cover/...
+    - go get github.com/mattn/goveralls/...
+    - env GO111MODULE=on go test -v -race -coverpkg=./... -covermode=atomic -coverprofile=coverage.out
+      ./...
+    - "$HOME/gopath/bin/goveralls -coverprofile=coverage.out -service=travis-ci -repotoken
+      $COVERALLS_TOKEN"
+    after_success:
+    - bash <(curl -s https://codecov.io/bash)
+  - stage: Metalinter analysis
+    go:
+    - 1.11.x
+    os:
+    - osx
+    script:
+    - env GO111MODULE=off
+    - go get -u github.com/alecthomas/gometalinter/...
+    - gometalinter --install
+    - go vet -composites=false $(go list ./... | grep -v /vendor/)
+    - gometalinter --vendor --disable=gotype --linter='errcheck:errcheck -blank .
+      :PATH:LINE:COL:MESSAGE'
+  - stage: Sonar Scanner
+    addons:
+      sonarcloud:
+        organization: oleg-balunenko-github
+        token: "$SONAR_TOKEN"
+    script:
+    - sonar-scanner -Dsonar.projectVersion=${TRAVIS_TAG}
+  - stage: Build Application
+    go:
+    - 1.11.x
+    os:
+    - osx
+    script:
+    - echo "Build stage"
+    - mkdir -p build/{386,amd64}
+    - GOARCH=386 go build --ldflags "-X main.version=${TRAVIS_TAG} -X main.build=${TRAVIS_BUILD_NUMBER}
+      -X main.commit=${TRAVIS_COMMIT}" -o build/386/${MYAPP}-386 *.go
+    - GOARCH=amd64 go build --ldflags "-X main.version=${TRAVIS_TAG} -X main.build=${TRAVIS_BUILD_NUMBER}
+      -X main.commit=${TRAVIS_COMMIT}" -o build/amd64/${MYAPP}-amd64 *.go
+  - stage: GitHub Release
+    go:
+    - 1.11.x
+    os:
+    - osx
+    go_import_path: github.com/oleg-balunenko/logs-converter
+    install: skip
+    script: skip
+    before_deploy:
+    - "./scripts/run-build.sh"
+    deploy:
+    - provider: releases
+      api_key:
+        secure: "${GH_TOKEN}"
+      file:
+      - release/${MYAPP}-linux-amd64
+      - release/${MYAPP}-linux-amd64.sha256
+      - release/${MYAPP}-darwin-amd64
+      - release/${MYAPP}-darwin-amd64.sha256
+      - release/${MYAPP}-freebsd-amd64
+      - release/${MYAPP}-freebsd-amd64.sha256
+      - release/${MYAPP}-windows-amd64.exe
+      - release/${MYAPP}-windows-amd64.exe.sha256
+      - release/${MYAPP}-linux-386
+      - release/${MYAPP}-linux-386.sha256
+      - release/${MYAPP}-darwin-386
+      - release/${MYAPP}-darwin-386.sha256
+      - release/${MYAPP}-freebsd-386
+      - release/${MYAPP}-freebsd-386.sha256
+      - release/${MYAPP}-windows-386.exe
+      - release/${MYAPP}-windows-386.exe.sha256
+      - release/${MYAPP}-linux-ppc64
+      - release/${MYAPP}-linux-ppc64.sha256
+      - release/${MYAPP}-linux-ppc64le
+      - release/${MYAPP}-linux-ppc64le.sha256
+      skip_cleanup: true
+      on:
+        repo: oleg-balunenko/logs-converter
+        branch: master
+        tags: true
+addons:
+  ssh_known_hosts: github.com
