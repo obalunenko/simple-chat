@@ -4,13 +4,13 @@ import (
 	"bufio"
 	"bytes"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"io"
-	"log"
 	"os"
 	"strings"
 	"time"
+
+	"github.com/pkg/errors"
 )
 
 // Message struct
@@ -28,15 +28,14 @@ func (m *Message) SetMessage(from string) (err error) {
 	text, err := inputMessageText()
 
 	if err != nil {
-		err = errors.New("SetMessage():  " + err.Error())
-		return err
+		return errors.Wrap(err, "message: SetMessage")
 	}
 
 	m.Name = from
 	m.Text = text
 	m.setTimestamp()
 
-	return err
+	return nil
 }
 
 // inputMessageText function prompt to enter text of message
@@ -47,9 +46,7 @@ func inputMessageText() (text string, err error) {
 	messageInput, err := reader.ReadString('\n')
 
 	if err != nil {
-
-		err = errors.New("SetMessageText(): Error to read input: " + err.Error())
-		return "", err
+		return "", errors.Wrap(err, "message: inputMessageText")
 	}
 
 	messageInput = strings.Replace(messageInput, "\n", "", -1)
@@ -84,25 +81,23 @@ func (m *Message) NewClient(name string, messageText string, timestamp string) {
 }
 
 // Send sends byte array of Message to connection net.Conn
-func (m *Message) Send(conn io.Writer) (err error) {
+func (m *Message) Send(conn io.Writer) error {
 
-	jsonData, jsonErr := json.Marshal(&m)
-	if jsonErr != nil {
-		jsonErr = errors.New("failed to to Marshal: " + jsonErr.Error())
-		return jsonErr
+	jsonData, err := json.Marshal(&m)
+	if err != nil {
+		return errors.Wrap(err, "message: Send")
 	}
 
 	_, err = conn.Write(jsonData)
 	if err != nil {
-		err = errors.New("Error at Send at conn.Write(): " + err.Error())
-		return err
+		return errors.Wrap(err, "message: Send")
 	}
 
 	return nil
 }
 
 // Receive receives byte array from connection net.Conn
-func (m *Message) Receive(conn io.Reader) {
+func (m *Message) Receive(conn io.Reader) error {
 
 	dataReceived := false
 
@@ -111,7 +106,7 @@ func (m *Message) Receive(conn io.Reader) {
 	for !dataReceived {
 		_, err := conn.Read(jsonData)
 		if err != nil {
-			log.Fatal("receiveData(conn net.Conn): Error to conn.Read into jsonData: ", err)
+			return errors.Wrap(err, "message: Receive")
 		}
 
 		if len(jsonData) > 0 {
@@ -124,9 +119,9 @@ func (m *Message) Receive(conn io.Reader) {
 
 	err := json.Unmarshal(jsonData, &m)
 	if err != nil {
-
-		log.Fatalf("Failed to Unmarshal: %v", err)
+		return errors.Wrap(err, "message: Receive")
 
 	}
 
+	return nil
 }
