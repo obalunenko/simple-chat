@@ -1,12 +1,11 @@
 package message
 
 import (
-	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"strings"
 	"testing"
 
-	. "github.com/smartystreets/goconvey/convey"
+	"github.com/stretchr/testify/assert"
 )
 
 var testMessage = Message{
@@ -16,112 +15,114 @@ var testMessage = Message{
 	Text:      "Test Message",
 }
 
-func TestClient_Name(t *testing.T) {
-	Convey("#TestClient_Name() ", t, func() {
-		Convey(" Should return Name of Message", func() {
-			expectedResult := testMessage.Name
+func ExampleMessage_String() {
 
-			result := testMessage.Name
-
-			So(result, ShouldEqual, expectedResult)
-		})
-	})
-
-}
-
-func TestClient_NewClient(t *testing.T) {
-
-	Convey("#TestClient_NewClient() ", t, func() {
-		Convey("New Message should be created with passed parameters", func() {
-			newTestClient := new(Message)
-			newTestClient.NewClient(testMessage.Name,
-				testMessage.Text,
-				testMessage.Timestamp)
-
-			So(newTestClient, ShouldResemble, &testMessage)
-		})
-	})
-
-}
-
-func TestClient_MessageText(t *testing.T) {
-
-	Convey("#TestClient_MessageText() ", t, func() {
-		Convey(" Should return Text of Message", func() {
-			expectedResult := testMessage.Text
-
-			result := testMessage.Text
-
-			So(result, ShouldEqual, expectedResult)
-
-		})
-	})
-
-}
-
-func TestClient_ObjectFromJSON(t *testing.T) {
-
-	Convey("#TestClient_ObjectFromJSON()", t, func() {
-		Convey("When valid json got", func() {
-			newTestClient := new(Message)
-			jsonTestdata, err := ioutil.ReadFile("testdata/Valid_Client.json")
-			if err != nil {
-				fmt.Println("Error was occured during read from testdata/Valid_Client.json: ")
-
-			}
-
-			err = json.Unmarshal(jsonTestdata, &newTestClient)
-			Convey("Should create Message object from valid json", func() {
-				So(err, ShouldBeNil)
-				So(newTestClient, ShouldResemble, &testMessage)
-
-			})
-
-		})
-		Convey("When invalid json got", func() {
-			newTestClient := new(Message)
-			jsonTestdata, err := ioutil.ReadFile("testdata/Invalid_Client.json")
-			jsonTestdata = append(jsonTestdata, 0) // add '\x00' to the end of valid file
-			if err != nil {
-				fmt.Println("Error was occurred during read from testdata/Invalid_Client.json: ")
-
-			}
-
-			err = json.Unmarshal(jsonTestdata, &newTestClient)
-			Convey("Should throw error when invalid json got", func() {
-
-				So(err, ShouldBeError)
-
-			})
-
-		})
-
-	})
-}
-
-func TestClient_ObjectToJSON(t *testing.T) {
-	Convey("#TestClient_ObjectToJSON()", t, func() {
-
-		Convey("Should convert Message object to json byte array", func() {
-			resultJSON, _ := json.Marshal(testMessage)
-
-			expectedJSON, err := ioutil.ReadFile("testdata/expected.json")
-
-			if err != nil {
-				fmt.Println("Error was occurred during read from testdata/Invalid_Client.json: ")
-
-			}
-			So(resultJSON, ShouldResemble, expectedJSON)
-
-		})
-
-	})
-}
-
-func ExampleMessage() {
-
-	testMessage.String()
+	fmt.Print(testMessage.String())
 	// OUTPUT:
 	// 2017-12-07 - message from TestName: Test Message
 
+}
+
+func TestMessage_SetMessage(t *testing.T) {
+	type fields struct {
+		Name      string
+		Timestamp string
+		Text      string
+	}
+	type args struct {
+		from string
+	}
+	tests := []struct {
+		name    string
+		fields  fields
+		args    args
+		wantErr bool
+	}{
+		{
+			name: "Chandler",
+			fields: fields{
+				Name:      "Chandler",
+				Timestamp: "2017-12-07",
+				Text:      "Hi Chandler\n",
+			},
+			args: args{
+				from: "Nicole",
+			},
+			wantErr: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			m := &Message{
+				Name:      tt.fields.Name,
+				Timestamp: tt.fields.Timestamp,
+				Text:      tt.fields.Text,
+			}
+			if err := m.SetMessage(tt.args.from, strings.NewReader(m.Text)); (err != nil) != tt.wantErr {
+				t.Errorf("Message.SetMessage() error = %v, wantErr %v", err, tt.wantErr)
+			}
+		})
+	}
+}
+
+func Test_inputMessageText(t *testing.T) {
+	tests := []struct {
+		name     string
+		text     string
+		wantText string
+		wantErr  bool
+	}{
+		{
+			name:     "Jack",
+			text:     "Hi Jack\n",
+			wantText: "Hi Jack",
+			wantErr:  false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			gotText, err := inputMessageText(strings.NewReader(tt.text))
+			if (err != nil) != tt.wantErr {
+				t.Errorf("inputMessageText() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if gotText != tt.wantText {
+				t.Errorf("inputMessageText() = %v, want %v", gotText, tt.wantText)
+			}
+		})
+	}
+}
+
+func TestMessage_String(t *testing.T) {
+	type fields struct {
+		Name      string
+		Timestamp string
+		Text      string
+	}
+	tests := []struct {
+		name     string
+		fields   fields
+		expected string
+	}{
+		{
+			name: "Jack",
+			fields: fields{
+				Name:      "London",
+				Timestamp: "2017-12-07",
+				Text:      "How are you?",
+			},
+			expected: fmt.Sprintf("2017-12-07 - message from London: How are you?\n"),
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			m := &Message{
+				Name:      tt.fields.Name,
+				Timestamp: tt.fields.Timestamp,
+				Text:      tt.fields.Text,
+			}
+			got := m.String()
+			assert.Equal(t, tt.expected, got)
+		})
+	}
 }

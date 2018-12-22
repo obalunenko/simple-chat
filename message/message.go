@@ -6,7 +6,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"os"
 	"strings"
 	"time"
 
@@ -23,9 +22,9 @@ type (
 )
 
 // SetMessage function set message object:  Text and Timestamp
-func (m *Message) SetMessage(from string) (err error) {
+func (m *Message) SetMessage(from string, reader io.Reader) (err error) {
 
-	text, err := inputMessageText()
+	text, err := inputMessageText(reader)
 
 	if err != nil {
 		return errors.Wrap(err, "message: SetMessage")
@@ -39,11 +38,11 @@ func (m *Message) SetMessage(from string) (err error) {
 }
 
 // inputMessageText function prompt to enter text of message
-func inputMessageText() (text string, err error) {
+func inputMessageText(reader io.Reader) (text string, err error) {
 	fmt.Print("Send message: ")
-	reader := bufio.NewReader(os.Stdin)
+	r := bufio.NewReader(reader)
 
-	messageInput, err := reader.ReadString('\n')
+	messageInput, err := r.ReadString('\n')
 
 	if err != nil {
 		return "", errors.Wrap(err, "message: inputMessageText")
@@ -65,14 +64,14 @@ func (m *Message) setTimestamp() {
 }
 
 // String gives message with Timestamp and Name of addressee
-func (m *Message) String() {
+func (m *Message) String() string {
 
-	message := m.Timestamp + " - message from " + m.Name + ": " + m.Text + "\n"
-	fmt.Println(message)
+	return fmt.Sprintf("%s - message from %s: %s\n", m.Timestamp, m.Name, m.Text)
+
 }
 
-// NewClient creates new Message object with parameters from function arguments
-func (m *Message) NewClient(name string, messageText string, timestamp string) {
+// New creates new Message object with parameters from function arguments
+func (m *Message) New(name string, messageText string, timestamp string) {
 
 	m.Name = name
 	m.Text = messageText

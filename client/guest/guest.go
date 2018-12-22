@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net"
+	"os"
 	"strings"
 
 	"github.com/pkg/errors"
@@ -61,7 +62,7 @@ func (g Guest) Run() error {
 // Handle handles process of receiving and sending messages
 func (g *Guest) Handle() error {
 
-	err := g.message.SetMessage(g.Name)
+	err := g.message.SetMessage(g.Name, os.Stdin)
 	if err != nil {
 		return errors.Wrap(err, "client/guest: Handle")
 	}
@@ -77,7 +78,8 @@ func (g *Guest) Handle() error {
 		return errors.Wrap(err, "client/guest: Handle")
 	}
 
-	g.message.String()
+	fmt.Println(g.message.String())
+
 	return nil
 }
 

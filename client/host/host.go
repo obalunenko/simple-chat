@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net"
+	"os"
 	"strings"
 
 	"github.com/pkg/errors"
@@ -78,9 +79,9 @@ func (h *Host) Handle() error {
 		return errors.Wrap(err, "client/host: Handle")
 	}
 
-	h.message.String()
+	fmt.Println(h.message.String())
 
-	err := h.message.SetMessage(h.Name)
+	err := h.message.SetMessage(h.Name, os.Stdin)
 	if err != nil {
 		return errors.Wrap(err, "client/host: Handle")
 	}
