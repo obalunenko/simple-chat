@@ -12,6 +12,8 @@ import (
 	"github.com/pkg/errors"
 )
 
+const prefix = "message"
+
 // Message struct
 type (
 	Message struct {
@@ -23,11 +25,11 @@ type (
 
 // SetMessage function set message object:  Text and Timestamp
 func (m *Message) SetMessage(from string, reader io.Reader) (err error) {
-
+	var funcName = "SetMessage"
 	text, err := inputMessageText(reader)
 
 	if err != nil {
-		return errors.Wrap(err, "message: SetMessage")
+		return errors.Wrap(err, strings.Join([]string{prefix, funcName}, ":"))
 	}
 
 	m.Name = from
@@ -39,13 +41,14 @@ func (m *Message) SetMessage(from string, reader io.Reader) (err error) {
 
 // inputMessageText function prompt to enter text of message
 func inputMessageText(reader io.Reader) (text string, err error) {
+	var funcName = "inputMessageText()"
 	fmt.Print("Send message: ")
 	r := bufio.NewReader(reader)
 
 	messageInput, err := r.ReadString('\n')
 
 	if err != nil {
-		return "", errors.Wrap(err, "message: inputMessageText")
+		return "", errors.Wrap(err, strings.Join([]string{prefix, funcName}, ":"))
 	}
 
 	messageInput = strings.Replace(messageInput, "\n", "", -1)
@@ -81,15 +84,16 @@ func (m *Message) New(name string, messageText string, timestamp string) {
 
 // Send sends byte array of Message to connection net.Conn
 func (m *Message) Send(conn io.Writer) error {
+	var funcName = "Send()"
 
 	jsonData, err := json.Marshal(&m)
 	if err != nil {
-		return errors.Wrap(err, "message: Send")
+		return errors.Wrap(err, strings.Join([]string{prefix, funcName}, ":"))
 	}
 
 	_, err = conn.Write(jsonData)
 	if err != nil {
-		return errors.Wrap(err, "message: Send")
+		return errors.Wrap(err, strings.Join([]string{prefix, funcName}, ":"))
 	}
 
 	return nil
@@ -97,7 +101,7 @@ func (m *Message) Send(conn io.Writer) error {
 
 // Receive receives byte array from connection net.Conn
 func (m *Message) Receive(conn io.Reader) error {
-
+	var funcName = "Receive()"
 	dataReceived := false
 
 	jsonData := make([]byte, 1000)
@@ -105,7 +109,7 @@ func (m *Message) Receive(conn io.Reader) error {
 	for !dataReceived {
 		_, err := conn.Read(jsonData)
 		if err != nil {
-			return errors.Wrap(err, "message: Receive")
+			return errors.Wrap(err, strings.Join([]string{prefix, funcName}, ":"))
 		}
 
 		if len(jsonData) > 0 {
@@ -118,7 +122,7 @@ func (m *Message) Receive(conn io.Reader) error {
 
 	err := json.Unmarshal(jsonData, &m)
 	if err != nil {
-		return errors.Wrap(err, "message: Receive")
+		return errors.Wrap(err, strings.Join([]string{prefix, funcName}, ":"))
 
 	}
 

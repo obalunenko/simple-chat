@@ -12,6 +12,8 @@ import (
 	"github.com/oleg-balunenko/simple-chat/message"
 )
 
+const prefix = "client/guest"
+
 // Guest implements Client interface
 type Guest struct {
 	IP         string
@@ -38,12 +40,12 @@ func (g Guest) Address() string {
 
 // Run start chat session for guest
 func (g Guest) Run() error {
+	var funcName = "Run()"
 
 	conn, err := net.Dial("tcp", g.Address())
 	g.connection = conn
 	if err != nil {
-		log.Fatal("RunGuest(ip string): Error at net.Dial: ", err)
-		return errors.Wrap(err, "client/guest: Run")
+		return errors.Wrap(err, strings.Join([]string{prefix, funcName}, ":"))
 	}
 	defer func() {
 		if err := g.Close(); err != nil {
@@ -53,7 +55,7 @@ func (g Guest) Run() error {
 
 	for {
 		if err := g.Handle(); err != nil {
-			return errors.Wrap(err, "client/guest: Run()")
+			return errors.Wrap(err, strings.Join([]string{prefix, funcName}, ":"))
 		}
 	}
 
@@ -61,21 +63,21 @@ func (g Guest) Run() error {
 
 // Handle handles process of receiving and sending messages
 func (g *Guest) Handle() error {
-
+	var funcName = "Handle()"
 	err := g.message.SetMessage(g.Name, os.Stdin)
 	if err != nil {
-		return errors.Wrap(err, "client/guest: Handle")
+		return errors.Wrap(err, strings.Join([]string{prefix, funcName}, ":"))
 	}
 
 	err = g.message.Send(g.connection)
 	if err != nil {
 
-		return errors.Wrap(err, "client/guest: Handle")
+		return errors.Wrap(err, strings.Join([]string{prefix, funcName}, ":"))
 
 	}
 
 	if err := g.message.Receive(g.connection); err != nil {
-		return errors.Wrap(err, "client/guest: Handle")
+		return errors.Wrap(err, strings.Join([]string{prefix, funcName}, ":"))
 	}
 
 	fmt.Println(g.message.String())
