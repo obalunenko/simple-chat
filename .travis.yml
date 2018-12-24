@@ -66,37 +66,14 @@ jobs:
     go_import_path: github.com/oleg-balunenko/simple-chat
     install: skip
     script: skip
-    before_deploy:
-    - "./scripts/run-build.sh"
     deploy:
-    - provider: releases
-      api_key:
-        secure: "${GH_TOKEN}"
-      file:
-      - release/${MYAPP}-linux-amd64
-      - release/${MYAPP}-linux-amd64.sha256
-      - release/${MYAPP}-darwin-amd64
-      - release/${MYAPP}-darwin-amd64.sha256
-      - release/${MYAPP}-freebsd-amd64
-      - release/${MYAPP}-freebsd-amd64.sha256
-      - release/${MYAPP}-windows-amd64.exe
-      - release/${MYAPP}-windows-amd64.exe.sha256
-      - release/${MYAPP}-linux-386
-      - release/${MYAPP}-linux-386.sha256
-      - release/${MYAPP}-darwin-386
-      - release/${MYAPP}-darwin-386.sha256
-      - release/${MYAPP}-freebsd-386
-      - release/${MYAPP}-freebsd-386.sha256
-      - release/${MYAPP}-windows-386.exe
-      - release/${MYAPP}-windows-386.exe.sha256
-      - release/${MYAPP}-linux-ppc64
-      - release/${MYAPP}-linux-ppc64.sha256
-      - release/${MYAPP}-linux-ppc64le
-      - release/${MYAPP}-linux-ppc64le.sha256
-      skip_cleanup: true
-      on:
-        repo: oleg-balunenko/simple-chat
-        branch: master
-        tags: true
+      - provider: script
+        api_key:
+          secure: "${GH_TOKEN}"
+        skip_cleanup: true
+        script: curl -sL https://git.io/goreleaser | bash
+        on:
+          repo: oleg-balunenko/simple-chat
+          tags: true
 addons:
   ssh_known_hosts: github.com
