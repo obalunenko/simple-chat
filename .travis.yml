@@ -17,28 +17,31 @@ jobs:
     - 1.11.x
     os:
     - linux
-    script:
+    install:
     - env GO111MODULE=off
+    - make dependencies
+    script:
     - echo "Run unit tests..."
-    - go get golang.org/x/tools/cmd/cover/...
-    - go get github.com/mattn/goveralls/...
-    - env GO111MODULE=on go test -v -race -coverpkg=./... -covermode=atomic -coverprofile=coverage.out
-      ./...
-    - "$HOME/gopath/bin/goveralls -coverprofile=coverage.out -service=travis-ci -repotoken
-      $COVERALLS_TOKEN"
+    - env GO111MODULE=on
+    - make test
+    - goveralls -coverprofile=coverage.out -service=travis-ci -repotoken $COVERALLS_TOKEN
     after_success:
     - bash <(curl -s https://codecov.io/bash)
+
+
   - stage: Metalinter analysis
     go:
     - 1.11.x
     os:
     - linux
+    install:
+      - env GO111MODULE=off
+      - make dependencies
+      - curl -sfL https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | sh -s -- -b $(go env GOPATH)/bin v1.12.5
+      - golangci-lint --version
     script:
     - env GO111MODULE=off
-    - go get -u github.com/alecthomas/gometalinter/...
-    - gometalinter --install
-    - go vet -composites=false $(go list ./... | grep -v /vendor/)
-    - gometalinter --vendor --disable=gotype --linter='errcheck:errcheck -blank .:PATH:LINE:COL:MESSAGE'
+    - make lint
   - stage: Sonar Scanner
     addons:
       sonarcloud:
@@ -46,18 +49,20 @@ jobs:
         token: "$SONAR_TOKEN"
     script:
     - sonar-scanner -Dsonar.projectVersion=${TRAVIS_TAG}
-  - stage: Build Application
+  - stage: Build Application and Deploy
     go:
     - 1.11.x
     os:
     - linux
+    go_import_path: github.com/oleg-balunenko/simple-chat
     script:
     - echo "Build stage"
     - mkdir -p build/{386,amd64}
-    - GOARCH=386 go build --ldflags "-X main.version=${TRAVIS_TAG} -X main.build=${TRAVIS_BUILD_NUMBER}
+    - GOARCH=386 go build --ldflags "-X main.version=${TRAVIS_TAG} -X main.build=${TRAVIS_BUILD_NUMBER} \
       -X main.commit=${TRAVIS_COMMIT}" -o build/386/${MYAPP}-386 *.go
-    - GOARCH=amd64 go build --ldflags "-X main.version=${TRAVIS_TAG} -X main.build=${TRAVIS_BUILD_NUMBER}
+    - GOARCH=amd64 go build --ldflags "-X main.version=${TRAVIS_TAG} -X main.build=${TRAVIS_BUILD_NUMBER} \
       -X main.commit=${TRAVIS_COMMIT}" -o build/amd64/${MYAPP}-amd64 *.go
+
   - stage: GitHub Release
     go:
     - 1.11.x
@@ -65,14 +70,9 @@ jobs:
     - linux
     go_import_path: github.com/oleg-balunenko/simple-chat
     install: skip
-    script: skip
-    deploy:
-      # calls goreleaser
-        - provider: script
-          skip_cleanup: true
-          script: curl -sL https://git.io/goreleaser | bash
-          on:
-            tags: true
-            condition: $TRAVIS_OS_NAME = linux
-addons:
-  ssh_known_hosts: github.com
+    skip_cleanup: true
+    script: curl -sL https://git.io/goreleaser | bash
+    on:
+      tags: true
+    addons:
+    ssh_known_hosts: github.com
