@@ -52,6 +52,7 @@ func TestMessage_SetMessage(t *testing.T) {
 		},
 	}
 	for _, tt := range tests {
+		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			m := &Message{
 				Name:      tt.fields.Name,
@@ -80,6 +81,7 @@ func Test_inputMessageText(t *testing.T) {
 		},
 	}
 	for _, tt := range tests {
+		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			gotText, err := inputMessageText(strings.NewReader(tt.text))
 			if (err != nil) != tt.wantErr {
@@ -115,6 +117,7 @@ func TestMessage_String(t *testing.T) {
 		},
 	}
 	for _, tt := range tests {
+		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			m := &Message{
 				Name:      tt.fields.Name,
