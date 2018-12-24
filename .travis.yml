@@ -64,6 +64,8 @@ jobs:
     os:
     - osx
     go_import_path: github.com/oleg-balunenko/simple-chat
+    install: skip
+    script: skip
     deploy:
       - provider: script
         api_key:
