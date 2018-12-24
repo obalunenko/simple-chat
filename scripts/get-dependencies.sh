@@ -4,8 +4,6 @@ function get_dependencies() {
       declare -a packages=(
 "golang.org/x/tools/cmd/cover/..."
 "github.com/mattn/goveralls/..."
-"github.com/alecthomas/gometalinter/..."
-"golang.org/x/lint/golint"
 "github.com/Bubblyworld/gogroup/..."
 )
 
