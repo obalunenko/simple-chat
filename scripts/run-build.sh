@@ -17,14 +17,14 @@ if [[ "$(pwd)" != "${REPO_ROOT}" ]]; then
 fi
 
 GO_BUILD_CMD="go build -a -installsuffix cgo"
-GO_BUILD_LDFLAGS="-s -w -X main.commitHash=${COMMIT_HASH} -X main.buildDate=${DATE} -X main.version=${VERSION} -X main.flagImportDuringSolve=${IMPORT_DURING_SOLVE}"
+GO_BUILD_LDFLAGS="-s -w -X main.commit=${COMMIT_HASH} -X main.date=${DATE} -X main.version=${VERSION}"
 
 if [[ -z "${BUILD_PLATFORMS}" ]]; then
   BUILD_PLATFORMS="linux windows darwin"
 fi
 
 if [[ -z "${BUILD_ARCHS}" ]]; then
-  BUILD_ARCHS="amd64"
+  BUILD_ARCHS="amd64 386"
 fi
 
 mkdir -p "${REPO_ROOT}/release"
@@ -38,7 +38,7 @@ for OS in ${BUILD_PLATFORMS[@]}; do
 
 
     if [[ "${OS}" == "darwin" && "${BUILD_PLATFORM}" == "darwin" ]]; then
-      CGO_ENABLED=1
+      CGO_ENABLED=0
     else
       CGO_ENABLED=0
     fi
