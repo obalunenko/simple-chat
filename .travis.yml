@@ -62,9 +62,9 @@ jobs:
     - make compile
 
   - stage: GitHub Release
-    branches:
-      only:
-        - master
+    if: branch =~ (^v\d+\.\d+(\.\d+)?(-\S*)?$)|(master?$)
+    on:
+      tags: true
     go:
     - 1.11.x
     os:
@@ -73,7 +73,5 @@ jobs:
     install: skip
     skip_cleanup: true
     script: curl -sL https://git.io/goreleaser | bash
-    on:
-      tags: true
     addons:
     ssh_known_hosts: github.com
