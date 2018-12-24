@@ -1,0 +1,6 @@
+1269b109edaef16b916c526cccf85e4bf711df18529dc7307dcbe9f583638d9e  simple-chat-1.0.16-windows-386.zip
+e2b6f508b96ec8333fc279c74210e92ba67ae04f4037d5f855117d3773bbdd1d  simple-chat-1.0.16-linux-386.tar.gz
+cb4697212dbbd1cc692d20673f5e9775a45cfb1e891da6abf4e8a39dc416efdf  simple-chat-1.0.16-darwin-amd64.tar.gz
+763ef38d530784be18e2c06b19d72f7d202d5d177fa744662a1dc4cc443066ff  simple-chat-1.0.16-darwin-386.tar.gz
+a74d7436b32cfc9021cde06dbccd80319c57a832275b3708e111b59e0d234b59  simple-chat-1.0.16-windows-amd64.zip
+880306ae0e2bfd21de15a835a3b5f147c49006584ed46410238ff90e0e7962cb  simple-chat-1.0.16-linux-amd64.tar.gz
