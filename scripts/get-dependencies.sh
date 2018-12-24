@@ -5,7 +5,6 @@ function get_dependencies() {
 "golang.org/x/tools/cmd/cover/..."
 "github.com/mattn/goveralls/..."
 "github.com/Bubblyworld/gogroup/..."
-"go get github.com/axw/gocov/gocov/..."
 )
 
 ## now loop through the above array
