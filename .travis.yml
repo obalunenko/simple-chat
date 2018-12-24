@@ -49,7 +49,9 @@ jobs:
         token: "$SONAR_TOKEN"
     script:
     - sonar-scanner -Dsonar.projectVersion=${TRAVIS_TAG}
-  - stage: Build Application and Deploy
+
+
+  - stage: Build Application
     go:
     - 1.11.x
     os:
@@ -57,11 +59,7 @@ jobs:
     go_import_path: github.com/oleg-balunenko/simple-chat
     script:
     - echo "Build stage"
-    - mkdir -p build/{386,amd64}
-    - GOARCH=386 go build --ldflags "-X main.version=${TRAVIS_TAG} -X main.build=${TRAVIS_BUILD_NUMBER} \
-      -X main.commit=${TRAVIS_COMMIT}" -o build/386/${MYAPP}-386 *.go
-    - GOARCH=amd64 go build --ldflags "-X main.version=${TRAVIS_TAG} -X main.build=${TRAVIS_BUILD_NUMBER} \
-      -X main.commit=${TRAVIS_COMMIT}" -o build/amd64/${MYAPP}-amd64 *.go
+    - make compile
 
   - stage: GitHub Release
     go:
