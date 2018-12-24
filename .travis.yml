@@ -16,7 +16,7 @@ jobs:
     go:
     - 1.11.x
     os:
-    - osx
+    - linux
     script:
     - env GO111MODULE=off
     - echo "Run unit tests..."
@@ -32,7 +32,7 @@ jobs:
     go:
     - 1.11.x
     os:
-    - osx
+    - linux
     script:
     - env GO111MODULE=off
     - go get -u github.com/alecthomas/gometalinter/...
@@ -44,13 +44,13 @@ jobs:
       sonarcloud:
         organization: oleg-balunenko-github
         token: "$SONAR_TOKEN"
-    script: 
+    script:
     - sonar-scanner -Dsonar.projectVersion=${TRAVIS_TAG}
   - stage: Build Application
     go:
     - 1.11.x
     os:
-    - osx
+    - linux
     script:
     - echo "Build stage"
     - mkdir -p build/{386,amd64}
@@ -62,7 +62,7 @@ jobs:
     go:
     - 1.11.x
     os:
-    - osx
+    - linux
     go_import_path: github.com/oleg-balunenko/simple-chat
     install: skip
     script: skip
