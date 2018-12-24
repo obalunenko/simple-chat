@@ -21,13 +21,13 @@ var ( // flags
 
 var (
 	version string
-	build   string
+	date    string
 	commit  string
 )
 
 func main() {
 
-	fmt.Printf("Version info: %s:%s\n", version, build)
+	fmt.Printf("Version info: %s:%s\n", version, date)
 	fmt.Printf("commit: %s\n", commit)
 
 	flag.Parse()
