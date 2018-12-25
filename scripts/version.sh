@@ -73,7 +73,6 @@ if [[ "${NEWVERSION}" = "" ]]; then
 fi
 
 echo ${NEWVERSION}
-exit
 
 message="version ${NEWVERSION}"
 ADD="version"
