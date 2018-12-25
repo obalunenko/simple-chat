@@ -60,18 +60,12 @@ jobs:
     script:
     - echo "Build stage"
     - make compile
-
-  - stage: GitHub Release
-    if: (branch = master) AND (tag =~ ^v\d+\.\d+(\.\d+)?$)
-    on:
-      tags: true
-    go:
-    - 1.11.x
-    os:
-    - linux
-    go_import_path: github.com/oleg-balunenko/simple-chat
-    install: skip
-    skip_cleanup: true
-    script: curl -sL https://git.io/goreleaser | bash
+    after_success:
+    deploy:
+      skip_cleanup: true
+      provider: script
+      script: curl -sL https://git.io/goreleaser | bash
+      on:
+        tags: true
     addons:
     ssh_known_hosts: github.com
