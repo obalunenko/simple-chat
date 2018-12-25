@@ -71,7 +71,9 @@ test-cover:
 .PHONY: test-cover
 
 ## Release
-release: dependencies lint test test-cover compile
+release:
+	${call colored, release is running...}
+	./scripts/release.sh
 .PHONY: release
 
 .DEFAULT_GOAL := test
