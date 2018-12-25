@@ -62,7 +62,7 @@ jobs:
     - make compile
 
   - stage: GitHub Release
-    if: (branch = master) OR (branch =~ ^v\d+\.\d+(\.\d+)?$)
+    if: (branch = master) AND (tag =~ ^v\d+\.\d+(\.\d+)?$)
     on:
       tags: true
     go:
