@@ -4,67 +4,65 @@ sudo: false
 install: true
 env:
   global:
-  - MYAPP=simple-chat
-  - MYEMAIL=oleg.balunenko@gmail.com
-  - secure: VP9lxOikZbilprne1fYiAVke3GAY7yzyBcVA6JjNyH9znhRZVQBn6plgAHUiHe2esTWBIPDCkfJuAz0/yKMQPGsNJNRcsUKQbmGBjgT3lO2KGXtWM3hUboVQgODySTjo3o7KiX4a6r5HZ2oKQgoKIacyCTIJD4p5/ymJKiKZ8XC7J0FNFczQ6rWTbOkM9YRhFArTu26iw2LdgbKEY4qK6jh32H64KC1ETi2aUKikVvVMdTTZfeRMBDo1oza73yaltKfJTs8k1o/kOHruOVgcSKdnC/4GIaQNdFMWCC1rppoHTR/Mfcbfv1WQ/PbtJfo9cqlW/gwlsIDdATBPx7Sk6N0AdOY0gEqv1uWzttTDPbj4foh8stGoXbEfRx/mBO5NbUQHXQlp+v6hOwWQlZ8M6PKU3QX0hpNlQodZ21RUkCKhU4spq2l4iCVWglt4gEyiLIyLI40z7KXsf0MIc6UkLEiQYj+3sebrvUSkhQriTwyLA2e7LihyfjKMAEchwf4ARBEpa5u0jy1bwf2GINOkgT1NNFp6fzwlz2BTlUyApiPrRsd4puknjE7AohsJmt/SJBHcbCKejEb111vQukbH/rV7yOWo9k9tUfIwjCI9SfuQTXUwLsdMHWRWcsRKKKfi1fLxQ92KEC3GHnnmqdXq6kETL02qmJfaASpJEVcBU1M=
-  - secure: XhZw3pyRsxXSTMTtonZnDvogrCwsHaCJzFsxvR6IZYxbgDdheOP/8zQL8BcJrSW5Xj0I9f3bRQNSumMUcFKZUcwFGMdetn5Uz7V7tjzsYysVkEOZpd5N5UjI5H5NG5De8wZeYElCSbp/CTjX1xzPS8yXTGxWt5rRZSEFnerDZxpjsGzXmTwRHnz1zO1FM8yuDZ/0X/2LDdOmCBAGWNeCrpzUtujyS25b4kcrHw+LrhzWkQm0EA4BwNR2I6zgPTVXszP91OIgYuMc3FhZqzJrlTVP8/JZmW+416O4iQykHVuD5q30OQZBz9wNCM2cWxnMznHqmo2LqtWOYKk1urBLwtQ/DlrHDcfnlniw29wMGuET3KfOMFr4Pv+y0HcHDA/DgblsqiM7pKPwJf9KQHIV4Kn1ws0o++ZVKJSGXxGkuvxBcwNP8KTJooEvhVhLgAL5yjdt8jOwKrRYKuLpXzCpcjx4iKIj3qSlHUicZm0fAsbva2f8I1gSTfmjtyyWA7s94uiNI80atopsx/0bReMruQU3/86IM9sAROKKgxT0/8yrAjFY4561zUYm6PJ3NXIiZjp8RvHTkB1To20TF88aDrHufYQkAmDq8hkpmTP12R5pqR8X4TmaRXOGzgC2RZFztnUcDty7Jy31r3wdik5YlJO72sWtrpwC4B2r8GlezqQ=
-  - secure: tjht9CgICnXNFMzXADrRfopbpJILj8aDfBnfjKmT4wKXjZttm0EQG4uQDgQ7cQ405P66r7nmE6KKQY9k14UfRPSj0hIUd+eZVWu9PdnwF+wL6x7DlzVMZX39aa65dn3O1hnh+1uGEnH6pYZ1J0RpXVjiDm680gKqQNrejyF2JZtV+9qNb1EVRqA4Oh0dfiDd6oMVvk4BhkbhOiA1xHjNT3AxMY8vgs03HfvxEZ931PPnbzk4JRCqrG7cr7590+vd83lhULECAN2xV2371fLChb7XYVdI0Pl0XsRRtO6acAQbjg2mgIEgavZuUiwBJpLF1MdVwhCL5Nvi28+RW1gP8S0lhvMv/D/piD6ewvZHF91gJ5LMmM4GdPgwnwhNUWAsfAJkU8m4rLdUa5E+JgUwn3uOs8BhaPmuDaHyZ1EHe+3+ryCrLHvyBp7F3H/Ge3OfTpM0Bq40JeAEGlmP7drBntHQs8QzXH1gQTEFn7WyhhMZk+5+LSdFr26IXRmWHyX+t31Eu0DC3F+gyLPCRa1ZF25BmEF5tFeN1MI8ZqyhFlO4R3fdyf2xXYbvv6Mo1JyOmPp1lbwVrTgPYJyvMAM4wfgzEPOz78ZXfcG1sEHeYk/FkVx6xYH+CNbbXAd6s+K+b1x6qRIv1ytiUTW2/FR7kftdgnYCiKzjhDSXmPIxvcw=
-  - secure: S8lXnoABOnuAExDrpDM8XIiD0Ere5Jzx8TIwfUa3xHshV9lWuAT0lNJhu4qER8ZI8xfCGkvxa2mpuxc5oJJWeixP0f0Lij+snpDxSl+LNavDmaINF3h8qmsF7PBWWrv6ez8ROVM6zlhmsY2osQsj+hPone4rS+b75wAcSzainI5V9lc1yf3a87r18SJtLS+sPdI3USudtWgPZZ8N/7n7CG0F48fYxTV8xn81q5dxyS/J8yMdF5/GByFZMD6MQaUp3qlEBN79bFlFMqSy00UrGrFLZnACv5pYm2pBuEn3Z914bc5DdN/h4riCpAdQjlkB21tZNxH54WknDctGCMi+pwF/K4JoSAPZqXRIAQD0AZG32PmypV/KH/8IiJic34nDOY1mPvRdCGq6C2eVijGXVWwV/qdF80wJ6ePnTBDhyvpXsr66UqHl8uUqlwgkEi7aYMbAS8eILfxg4ZuN+7ZHkIMrlfV0U1YffnuV+JrLZTKmpE4uW07bYHYIUmeRQADXZkTnOvvI5ERngSFA4h8p1Z3S33zMGnAve3y7CNrqbhM16ETsf57VBu4GWHQUDulZ4QLUo7pDG1BjOhhekqJAZWLEVHRTn2DlAWtx/0HwqRU8PzXOOQJmrc7WMyn6Wn4RITbHg77dQsWF3o//rVjG30fPjm5jYsU9qsgvSrwZKLE=
+    - MYAPP=simple-chat
+    - MYEMAIL=oleg.balunenko@gmail.com
+    - secure: VP9lxOikZbilprne1fYiAVke3GAY7yzyBcVA6JjNyH9znhRZVQBn6plgAHUiHe2esTWBIPDCkfJuAz0/yKMQPGsNJNRcsUKQbmGBjgT3lO2KGXtWM3hUboVQgODySTjo3o7KiX4a6r5HZ2oKQgoKIacyCTIJD4p5/ymJKiKZ8XC7J0FNFczQ6rWTbOkM9YRhFArTu26iw2LdgbKEY4qK6jh32H64KC1ETi2aUKikVvVMdTTZfeRMBDo1oza73yaltKfJTs8k1o/kOHruOVgcSKdnC/4GIaQNdFMWCC1rppoHTR/Mfcbfv1WQ/PbtJfo9cqlW/gwlsIDdATBPx7Sk6N0AdOY0gEqv1uWzttTDPbj4foh8stGoXbEfRx/mBO5NbUQHXQlp+v6hOwWQlZ8M6PKU3QX0hpNlQodZ21RUkCKhU4spq2l4iCVWglt4gEyiLIyLI40z7KXsf0MIc6UkLEiQYj+3sebrvUSkhQriTwyLA2e7LihyfjKMAEchwf4ARBEpa5u0jy1bwf2GINOkgT1NNFp6fzwlz2BTlUyApiPrRsd4puknjE7AohsJmt/SJBHcbCKejEb111vQukbH/rV7yOWo9k9tUfIwjCI9SfuQTXUwLsdMHWRWcsRKKKfi1fLxQ92KEC3GHnnmqdXq6kETL02qmJfaASpJEVcBU1M=
+    - secure: XhZw3pyRsxXSTMTtonZnDvogrCwsHaCJzFsxvR6IZYxbgDdheOP/8zQL8BcJrSW5Xj0I9f3bRQNSumMUcFKZUcwFGMdetn5Uz7V7tjzsYysVkEOZpd5N5UjI5H5NG5De8wZeYElCSbp/CTjX1xzPS8yXTGxWt5rRZSEFnerDZxpjsGzXmTwRHnz1zO1FM8yuDZ/0X/2LDdOmCBAGWNeCrpzUtujyS25b4kcrHw+LrhzWkQm0EA4BwNR2I6zgPTVXszP91OIgYuMc3FhZqzJrlTVP8/JZmW+416O4iQykHVuD5q30OQZBz9wNCM2cWxnMznHqmo2LqtWOYKk1urBLwtQ/DlrHDcfnlniw29wMGuET3KfOMFr4Pv+y0HcHDA/DgblsqiM7pKPwJf9KQHIV4Kn1ws0o++ZVKJSGXxGkuvxBcwNP8KTJooEvhVhLgAL5yjdt8jOwKrRYKuLpXzCpcjx4iKIj3qSlHUicZm0fAsbva2f8I1gSTfmjtyyWA7s94uiNI80atopsx/0bReMruQU3/86IM9sAROKKgxT0/8yrAjFY4561zUYm6PJ3NXIiZjp8RvHTkB1To20TF88aDrHufYQkAmDq8hkpmTP12R5pqR8X4TmaRXOGzgC2RZFztnUcDty7Jy31r3wdik5YlJO72sWtrpwC4B2r8GlezqQ=
+    - secure: tjht9CgICnXNFMzXADrRfopbpJILj8aDfBnfjKmT4wKXjZttm0EQG4uQDgQ7cQ405P66r7nmE6KKQY9k14UfRPSj0hIUd+eZVWu9PdnwF+wL6x7DlzVMZX39aa65dn3O1hnh+1uGEnH6pYZ1J0RpXVjiDm680gKqQNrejyF2JZtV+9qNb1EVRqA4Oh0dfiDd6oMVvk4BhkbhOiA1xHjNT3AxMY8vgs03HfvxEZ931PPnbzk4JRCqrG7cr7590+vd83lhULECAN2xV2371fLChb7XYVdI0Pl0XsRRtO6acAQbjg2mgIEgavZuUiwBJpLF1MdVwhCL5Nvi28+RW1gP8S0lhvMv/D/piD6ewvZHF91gJ5LMmM4GdPgwnwhNUWAsfAJkU8m4rLdUa5E+JgUwn3uOs8BhaPmuDaHyZ1EHe+3+ryCrLHvyBp7F3H/Ge3OfTpM0Bq40JeAEGlmP7drBntHQs8QzXH1gQTEFn7WyhhMZk+5+LSdFr26IXRmWHyX+t31Eu0DC3F+gyLPCRa1ZF25BmEF5tFeN1MI8ZqyhFlO4R3fdyf2xXYbvv6Mo1JyOmPp1lbwVrTgPYJyvMAM4wfgzEPOz78ZXfcG1sEHeYk/FkVx6xYH+CNbbXAd6s+K+b1x6qRIv1ytiUTW2/FR7kftdgnYCiKzjhDSXmPIxvcw=
+    - secure: S8lXnoABOnuAExDrpDM8XIiD0Ere5Jzx8TIwfUa3xHshV9lWuAT0lNJhu4qER8ZI8xfCGkvxa2mpuxc5oJJWeixP0f0Lij+snpDxSl+LNavDmaINF3h8qmsF7PBWWrv6ez8ROVM6zlhmsY2osQsj+hPone4rS+b75wAcSzainI5V9lc1yf3a87r18SJtLS+sPdI3USudtWgPZZ8N/7n7CG0F48fYxTV8xn81q5dxyS/J8yMdF5/GByFZMD6MQaUp3qlEBN79bFlFMqSy00UrGrFLZnACv5pYm2pBuEn3Z914bc5DdN/h4riCpAdQjlkB21tZNxH54WknDctGCMi+pwF/K4JoSAPZqXRIAQD0AZG32PmypV/KH/8IiJic34nDOY1mPvRdCGq6C2eVijGXVWwV/qdF80wJ6ePnTBDhyvpXsr66UqHl8uUqlwgkEi7aYMbAS8eILfxg4ZuN+7ZHkIMrlfV0U1YffnuV+JrLZTKmpE4uW07bYHYIUmeRQADXZkTnOvvI5ERngSFA4h8p1Z3S33zMGnAve3y7CNrqbhM16ETsf57VBu4GWHQUDulZ4QLUo7pDG1BjOhhekqJAZWLEVHRTn2DlAWtx/0HwqRU8PzXOOQJmrc7WMyn6Wn4RITbHg77dQsWF3o//rVjG30fPjm5jYsU9qsgvSrwZKLE=
 jobs:
   include:
-  - stage: Unit Tests
-    go:
-    - 1.11.x
-    os:
-    - linux
-    install:
-    - env GO111MODULE=off
-    - make dependencies
-    script:
-    - echo "Run unit tests..."
-    - env GO111MODULE=on
-    - make test
-    - goveralls -coverprofile=coverage.out -service=travis-ci -repotoken $COVERALLS_TOKEN
-    after_success:
-    - bash <(curl -s https://codecov.io/bash)
+    - stage: Unit Tests
+      go:
+        - 1.11.x
+      os:
+        - linux
+      install:
+        - env GO111MODULE=off
+        - make dependencies
+      script:
+        - echo "Run unit tests..."
+        - env GO111MODULE=on
+        - make test
+        - goveralls -coverprofile=coverage.out -service=travis-ci -repotoken $COVERALLS_TOKEN
+      after_success:
+        - bash <(curl -s https://codecov.io/bash)
 
+    - stage: Metalinter analysis
+      go:
+        - 1.11.x
+      os:
+        - linux
+      install:
+        - env GO111MODULE=off
+        - make dependencies
+      script:
+        - env GO111MODULE=off
+        - make lint
+    - stage: Sonar Scanner
+      addons:
+        sonarcloud:
+          organization: oleg-balunenko-github
+          token: "$SONAR_TOKEN"
+      script:
+        - sonar-scanner -Dsonar.projectVersion=${TRAVIS_TAG}
 
-  - stage: Metalinter analysis
-    go:
-    - 1.11.x
-    os:
-    - linux
-    install:
-      - env GO111MODULE=off
-      - make dependencies
-    script:
-    - env GO111MODULE=off
-    - make lint
-  - stage: Sonar Scanner
-    addons:
-      sonarcloud:
-        organization: oleg-balunenko-github
-        token: "$SONAR_TOKEN"
-    script:
-    - sonar-scanner -Dsonar.projectVersion=${TRAVIS_TAG}
-
-
-  - stage: Build Application
-    go:
-    - 1.11.x
-    os:
-    - linux
-    go_import_path: github.com/oleg-balunenko/simple-chat
-    script:
-    - echo "Build stage"
-    - make compile
-    after_success:
-    deploy:
-      skip_cleanup: true
-      provider: script
-      script: make release
-      on:
-        tags: true
-        condition: $TRAVIS_OS_NAME = linux
-    addons:
-    ssh_known_hosts: github.com
+    - stage: Build Application
+      go:
+        - 1.11.x
+      os:
+        - linux
+      go_import_path: github.com/oleg-balunenko/simple-chat
+      script:
+        - echo "Build stage"
+        - make compile
+      after_success:
+      deploy:
+        skip_cleanup: true
+        provider: script
+        script: make release
+        on:
+          tags: true
+          condition: $TRAVIS_OS_NAME = linux
+      addons:
+      ssh_known_hosts: github.com
