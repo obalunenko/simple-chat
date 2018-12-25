@@ -48,7 +48,7 @@ dev:
 ## Compile binary
 compile:
 	${call colored, compile is running...}
-	./scripts/run-build.sh
+	./scripts/compile.sh
 .PHONY: compile
 
 ## lint project
@@ -69,6 +69,12 @@ test-cover:
 	go test -race -coverpkg=./... -v -coverprofile .testCoverage.out ./...
 	gocov convert .testCoverage.out | gocov report
 .PHONY: test-cover
+
+new-version:
+	${call colored, new version is running...}
+	./scripts/version.sh
+.PHONY: new-version
+
 
 ## Release
 release:
