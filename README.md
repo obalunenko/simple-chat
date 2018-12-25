@@ -29,11 +29,10 @@
 
 Chat application that allows to send messages between host and guest users
 
-
 ## Usage:
 
 Flags:
- 
+
 ```text
  -ip string
     	server machine ip
@@ -44,27 +43,26 @@ Flags:
 
 ```
 
-
 #### Run host
 
 Open console and run executable `simple-chat` file with flag `-listen` and pass the `ip` of your machine as argument
-##### Example: 
+
+##### Example:
 
 ```bash
 ./simple-chat -listen -ip=192.168.02.11
 ```
 
-
 #### Run guest
 
 Open console and run executable `simple-chat` file and pass as the `ip` of `host` as argument
+
 ##### Example:
+
 ```bash
 ./simple-chat -ip=192.168.02.11
 
 ```
-
-
 
 ======================================
 
