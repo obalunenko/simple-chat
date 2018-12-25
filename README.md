@@ -27,6 +27,8 @@
 
 # simple-chat
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/af78d928544e4f2b97e992dbed309b07)](https://app.codacy.com/app/oleg.balunenko/simple-chat?utm_source=github.com&utm_medium=referral&utm_content=oleg-balunenko/simple-chat&utm_campaign=Badge_Grade_Dashboard)
+
 Chat application that allows to send messages between host and guest users
 
 ## Usage
