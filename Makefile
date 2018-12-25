@@ -41,7 +41,7 @@ dependencies:
 ## Dev mode - go run
 dev:
 	${call colored, dev is running...}
-	docker-compose up&
+	#docker-compose up&
 	go run main.go
 .PHONY: dev
 

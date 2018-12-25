@@ -55,6 +55,7 @@ jobs:
     - 1.11.x
     os:
     - linux
+    - osx
     go_import_path: github.com/oleg-balunenko/simple-chat
     script:
     - echo "Build stage"
@@ -66,5 +67,6 @@ jobs:
       script: make release
       on:
         tags: true
+        condition: $TRAVIS_OS_NAME = linux
     addons:
     ssh_known_hosts: github.com
