@@ -21,7 +21,7 @@ function require_clean_work_tree () {
         err=1
     fi
     
-    if [ $err = 1 ]
+    if [[ ${err} = 1 ]]
     then
         echo >&2 "Please commit or stash them."
         exit 1
