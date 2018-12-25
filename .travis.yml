@@ -64,7 +64,7 @@ jobs:
     deploy:
       skip_cleanup: true
       provider: script
-      script: curl -sL https://git.io/goreleaser | bash
+      script: make release
       on:
         tags: true
     addons:
