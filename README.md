@@ -29,9 +29,9 @@
 
 Chat application that allows to send messages between host and guest users
 
-## Usage:
+## Usage
 
-Flags:
+### Flags
 
 ```text
  -ip string
