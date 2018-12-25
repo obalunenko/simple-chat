@@ -34,7 +34,6 @@ jobs:
     - 1.11.x
     os:
     - linux
-    - osx
     install:
       - env GO111MODULE=off
       - make dependencies
@@ -55,7 +54,6 @@ jobs:
     - 1.11.x
     os:
     - linux
-    - osx
     go_import_path: github.com/oleg-balunenko/simple-chat
     script:
     - echo "Build stage"
