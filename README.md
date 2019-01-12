@@ -17,9 +17,6 @@
     <a href="https://sonarcloud.io/dashboard?id=simple-chat">
         <img src="https://sonarcloud.io/api/project_badges/measure?project=simple-chat&metric=alert_status" alt="Quality Gate Status"></img>
     </a>
-    <a href="https://www.codefactor.io/repository/github/oleg-balunenko/simple-chat">
-        <img src="https://www.codefactor.io/repository/github/oleg-balunenko/simple-chat/badge" alt="CodeFactor" />
-    </a>
     <a href="https://app.codacy.com/app/oleg.balunenko/simple-chat?utm_source=github.com&utm_medium=referral&utm_content=oleg-balunenko/simple-chat&utm_campaign=Badge_Grade_Dashboard">
         <img src="https://api.codacy.com/project/badge/Grade/af78d928544e4f2b97e992dbed309b07" alt="Codacity code quality" />
     </a>
