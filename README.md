@@ -36,36 +36,26 @@ Chat application that allows to send messages between host and guest users
 ### Flags
 
 ```text
- -ip string
-    	server machine ip
- -listen
-    	Listens on the specified ip address
- -port string
-    	server port (default "8080")
+  -debug
+    	debug mode enables tracing of events
+  -host string
+    	server host address (default ":8080")
+  -noauth
+    	allow to use chat without authentication
 
 ```
 
-#### Run host
+#### Run
 
-Open console and run executable `simple-chat` file with flag `-listen` and pass the `ip` of your machine as argument
+Open console and run executable `simple-chat` file with flag `-host` and pass the `ip` of your machine as argument and
+desired port
 
 ##### Example:
 
 ```bash
-./simple-chat -listen -ip=192.168.02.11
+./simple-chat -host -ip=192.168.02.11:8080
 ```
 
-#### Run guest
+#### Start chat
 
-Open console and run executable `simple-chat` file and pass as the `ip` of `host` as argument
-
-##### Example:
-
-```bash
-./simple-chat -ip=192.168.02.11
-
-```
-
-======================================
-
-Now you can send messages via guest and host.
+Open browser at ```192.168.02.11:8080/chat```  and start to chat
