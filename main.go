@@ -101,15 +101,3 @@ func registerHandlers() *chat.Room {
 	http.Handle("/room", room)
 	return room
 }
-
-// google
-// clientID 900662569273-219r26ccu7ek7tiqu26tkivo0u8dr4t9.apps.googleusercontent.com
-// client secret 89eIA-bFrJqLbbt84ucsf86_
-
-// facebook
-// clientID 387269925431080
-// clientSecret 32338c322fa86dd884b72227e3303c21
-
-// github
-// clientID 6c407c7d494c9ce3af62
-// clientSecret 4756246093276b8320c2e7d1863b787ee915e6e2
