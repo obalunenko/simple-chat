@@ -20,12 +20,17 @@
     <a href="https://www.codefactor.io/repository/github/oleg-balunenko/simple-chat">
         <img src="https://www.codefactor.io/repository/github/oleg-balunenko/simple-chat/badge" alt="CodeFactor" />
     </a>
+    <a href="https://app.codacy.com/app/oleg.balunenko/simple-chat?utm_source=github.com&utm_medium=referral&utm_content=oleg-balunenko/simple-chat&utm_campaign=Badge_Grade_Dashboard">
+        <img src="https://api.codacy.com/project/badge/Grade/af78d928544e4f2b97e992dbed309b07" alt="Codacity code quality" />
+    </a>
     <a href="https://github.com/oleg-balunenko/simple-chat/releases/latest">
         <img src="https://img.shields.io/badge/artifacts-download-blue.svg" alt ="Latest release artifacts"></img>
     </a>
 </p>
 
 # simple-chat
+
+
 
 Chat application that allows to send messages between host and guest users
 
