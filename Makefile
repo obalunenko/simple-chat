@@ -41,9 +41,15 @@ dependencies:
 ## Dev mode - go run
 dev:
 	${call colored, dev is running...}
-	#docker-compose up&
-	go run main.go
+	go run . -debug
 .PHONY: dev
+
+## Dev mode - go run with noauth
+dev-noauth:
+	${call colored, dev is running...}
+	go run . -debug -noauth
+.PHONY: dev-noauth
+
 
 ## Compile binary
 compile:
@@ -57,6 +63,11 @@ lint:
 	./scripts/linters.sh
 .PHONY: lint
 
+## format markdown files in project
+pretty-markdown:
+	find . -name '*.md' -not -wholename './vendor/*' | xargs prettier --write
+.PHONY: pretty-markdown
+
 ## Test all packages
 test:
 	${call colored, test is running...}
@@ -66,8 +77,7 @@ test:
 ## Test coverage
 test-cover:
 	${call colored, test-cover is running...}
-	go test -race -coverpkg=./... -v -coverprofile .testCoverage.out ./...
-	gocov convert .testCoverage.out | gocov report
+	./scripts/coverage.sh
 .PHONY: test-cover
 
 new-version: lint test compile
@@ -82,6 +92,11 @@ release:
 	./scripts/release.sh
 .PHONY: release
 
-.DEFAULT_GOAL := test
+## Fix imports sorting
+imports:
+	${call colored, sort and group imports...}
+	./scripts/fix-imports-order.sh
+.PHONY: imports
 
+.DEFAULT_GOAL := test
 

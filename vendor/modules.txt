@@ -1,8 +1,44 @@
-# github.com/davecgh/go-spew v1.1.1
+# github.com/clbanning/x2j v0.0.0-20180326210544-5e605d46809c
+github.com/clbanning/x2j
+# github.com/davecgh/go-spew v1.1.0
 github.com/davecgh/go-spew/spew
-# github.com/pkg/errors v0.8.0
+# github.com/gorilla/websocket v1.4.0
+github.com/gorilla/websocket
+# github.com/pkg/errors v0.8.1
 github.com/pkg/errors
 # github.com/pmezard/go-difflib v1.0.0
 github.com/pmezard/go-difflib/difflib
-# github.com/stretchr/testify v1.2.2
+# github.com/stretchr/codecs v0.0.0-20170403063245-04a5b1e1910d
+github.com/stretchr/codecs
+github.com/stretchr/codecs/services
+github.com/stretchr/codecs/bson
+github.com/stretchr/codecs/constants
+github.com/stretchr/codecs/csv
+github.com/stretchr/codecs/json
+github.com/stretchr/codecs/jsonp
+github.com/stretchr/codecs/msgpack
+github.com/stretchr/codecs/xml
+# github.com/stretchr/gomniauth v0.0.0-20170717123514-4b6c822be2eb
+github.com/stretchr/gomniauth
+github.com/stretchr/gomniauth/providers/facebook
+github.com/stretchr/gomniauth/providers/github
+github.com/stretchr/gomniauth/providers/google
+github.com/stretchr/gomniauth/common
+github.com/stretchr/gomniauth/oauth2
+github.com/stretchr/gomniauth/test
+# github.com/stretchr/objx v0.1.1
+github.com/stretchr/objx
+# github.com/stretchr/signature v0.0.0-20160104132143-168b2a1e1b56
+github.com/stretchr/signature
+# github.com/stretchr/stew v0.0.0-20130812190256-80ef0842b48b
+github.com/stretchr/stew/strings
+# github.com/stretchr/testify v1.3.0
 github.com/stretchr/testify/assert
+github.com/stretchr/testify/mock
+# github.com/stretchr/tracer v0.0.0-20140124184152-66d3696bba97
+github.com/stretchr/tracer
+# github.com/ugorji/go/codec v0.0.0-20181209151446-772ced7fd4c2
+github.com/ugorji/go/codec
+# gopkg.in/mgo.v2 v2.0.0-20180705113604-9856a29383ce
+gopkg.in/mgo.v2/bson
+gopkg.in/mgo.v2/internal/json
