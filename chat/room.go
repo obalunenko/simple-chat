@@ -61,7 +61,7 @@ func (r *Room) Run() {
 		case c := <-r.join:
 			// joining to room
 			r.clients[c] = true
-			r.tracer.Trace("New c joined: ", c.userData["name"])
+			r.tracer.Trace("New client joined: ", c.userData["name"])
 		case c := <-r.leave:
 			// leaving the room
 			delete(r.clients, c)
@@ -71,7 +71,7 @@ func (r *Room) Run() {
 			r.tracer.Trace("Message received: ", msg.Message, " From: ", msg.Name)
 			for cl := range r.clients {
 				cl.send <- msg
-				r.tracer.Trace(" -- sent to c: ", cl.userData["name"])
+				r.tracer.Trace(" -- sent to client: ", cl.userData["name"])
 			}
 		}
 	}
