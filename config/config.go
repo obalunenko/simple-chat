@@ -2,11 +2,12 @@ package config
 
 import (
 	"encoding/json"
-	"github.com/BurntSushi/toml"
-	"github.com/caarlos0/env"
 	"log"
 	"os"
 	"strings"
+
+	"github.com/BurntSushi/toml"
+	"github.com/caarlos0/env"
 )
 
 // ChatConfig stores service config parameters
@@ -23,6 +24,7 @@ type ChatConfig struct {
 }
 
 // Help output for flags when program run with -h flag
+/*
 func setFlagsHelp() map[string]string {
 	usageMsg := make(map[string]string)
 
@@ -39,9 +41,9 @@ func setFlagsHelp() map[string]string {
 
 	return usageMsg
 }
+*/
 
-// LoadConfig loads configuration for service to struct ChatConfig
-
+// Load loads configuration for service to struct ChatConfig
 func Load(configPath string) *ChatConfig {
 	svcConfig := &ChatConfig{}
 
