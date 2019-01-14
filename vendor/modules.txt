@@ -1,9 +1,19 @@
+# github.com/BurntSushi/toml v0.3.1
+github.com/BurntSushi/toml
+# github.com/caarlos0/env v3.5.0+incompatible
+github.com/caarlos0/env
 # github.com/clbanning/x2j v0.0.0-20180326210544-5e605d46809c
 github.com/clbanning/x2j
 # github.com/davecgh/go-spew v1.1.0
 github.com/davecgh/go-spew/spew
+# github.com/fatih/camelcase v1.0.0
+github.com/fatih/camelcase
+# github.com/fatih/structs v1.1.0
+github.com/fatih/structs
 # github.com/gorilla/websocket v1.4.0
 github.com/gorilla/websocket
+# github.com/koding/multiconfig v0.0.0-20171124222453-69c27309b2d7
+github.com/koding/multiconfig
 # github.com/pkg/errors v0.8.1
 github.com/pkg/errors
 # github.com/pmezard/go-difflib v1.0.0
@@ -42,3 +52,5 @@ github.com/ugorji/go/codec
 # gopkg.in/mgo.v2 v2.0.0-20180705113604-9856a29383ce
 gopkg.in/mgo.v2/bson
 gopkg.in/mgo.v2/internal/json
+# gopkg.in/yaml.v2 v2.2.2
+gopkg.in/yaml.v2

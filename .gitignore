@@ -18,8 +18,9 @@
 \release/
 \dist/
 \simple-chat/
-.env
-.config.toml
+*.env
+config.toml
 \web/images/
+
 
 

@@ -1,7 +1,6 @@
 package main
 
 import (
-	"flag"
 	"fmt"
 	"log"
 	"net/http"
@@ -15,45 +14,41 @@ import (
 	"github.com/stretchr/signature"
 
 	"github.com/oleg-balunenko/simple-chat/chat"
+	"github.com/oleg-balunenko/simple-chat/config"
 	"github.com/oleg-balunenko/simple-chat/web"
-)
-
-var ( // flags
-	host   = flag.String("host", ":8080", "server host address")
-	debug  = flag.Bool("debug", false, "debug mode enables tracing of events")
-	noauth = flag.Bool("noauth", false, "allow to use chat without authentication")
 )
 
 func main() {
 
 	printVersion()
 
-	flag.Parse()
+	cfg := config.Load("config.toml")
+
 	gomniauth.SetSecurityKey(signature.RandomKey(64))
 	gomniauth.WithProviders(
-		facebook.New("387269925431080", "32338c322fa86dd884b72227e3303c21",
+		facebook.New(cfg.FacebookClientID, cfg.FacebookClientSecret,
 			"http://localhost:8080/auth/callback/facebook"),
 
-		github.New("6c407c7d494c9ce3af62", "4756246093276b8320c2e7d1863b787ee915e6e2",
+		github.New(cfg.GithubClientID, cfg.GithubClientSecret,
 			"http://localhost:8080/auth/callback/github"),
 
-		google.New("900662569273-219r26ccu7ek7tiqu26tkivo0u8dr4t9.apps.googleusercontent.com",
-			"89eIA-bFrJqLbbt84ucsf86_", "http://localhost:8080/auth/callback/google"),
+		google.New(cfg.GoogleClientID,
+			cfg.GoogleClientSecret, "http://localhost:8080/auth/callback/google"),
 	)
 
-	room := registerHandlers()
+	room := registerHandlers(cfg)
 	go room.Run()
 
 	// start the web server
-	log.Printf("Starting web server on %s", *host)
+	log.Printf("Starting web server on %s", cfg.Host)
 
-	if err := http.ListenAndServe(*host, nil); err != nil {
+	if err := http.ListenAndServe(cfg.Host, nil); err != nil {
 		log.Fatal("ListenAndServe:", err)
 	}
 
 }
 
-func registerHandlers() *chat.Room {
+func registerHandlers(cfg *config.ChatConfig) *chat.Room {
 	var room *chat.Room
 	staticPath := strings.Join([]string{".", "web", "static"}, string(filepath.Separator))
 	templPath := strings.Join([]string{".", "web", "templates"}, string(filepath.Separator))
@@ -65,7 +60,7 @@ func registerHandlers() *chat.Room {
 		chat.UseAuthAvatar(),
 		chat.UseGravatarAvatar())
 
-	if *debug {
+	if cfg.Debug {
 		fmt.Println("Debug mode")
 		room = chat.NewRoomDebug()
 	} else {
@@ -77,7 +72,7 @@ func registerHandlers() *chat.Room {
 
 	chatTemplHandler := web.NewTemplateHandler(templPath, "chat.html")
 
-	if *noauth {
+	if cfg.Noauth {
 		http.Handle("/chat", chatTemplHandler)
 	} else {
 		http.Handle("/chat", chat.MustAuth(chatTemplHandler))

@@ -1,0 +1,12 @@
+version: "3.3"
+services:
+  simple-chat:
+    build:
+      context: .
+    command: ./simple-chat
+    ports:
+      - 8080:8080
+    tty: true
+    restart: always
+    env_file:
+      - ./config.env

@@ -52,9 +52,15 @@ dev-noauth:
 
 
 ## Compile binary
+compile-for-docker:
+	${call colored, compile-for-docker is running...}
+	./scripts/compile-for-docker.sh
+.PHONY: compile-for-docker
+
+## Cross system compile
 compile:
 	${call colored, compile is running...}
-	./scripts/compile.sh
+	./scripts/cross-compile.sh
 .PHONY: compile
 
 ## lint project
@@ -97,6 +103,27 @@ imports:
 	${call colored, sort and group imports...}
 	./scripts/fix-imports-order.sh
 .PHONY: imports
+
+## Docker-compose up
+docker-up:
+	${call colored, docker-compose up...}
+	docker-compose up
+.PHONY: docker-up
+
+## Docker-compose down
+docker-down:
+	${call colored, docker-compose down...}
+	docker-compose down
+.PHONY: docker-down
+
+
+## Docker-compose build
+docker-build:
+	${call colored, docker-compose build...}
+	docker-compose build
+.PHONY: docker-build
+
+
 
 .DEFAULT_GOAL := test
 

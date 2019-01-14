@@ -1,8 +1,13 @@
 module github.com/oleg-balunenko/simple-chat
 
 require (
+	github.com/BurntSushi/toml v0.3.1
+	github.com/caarlos0/env v3.5.0+incompatible
 	github.com/clbanning/x2j v0.0.0-20180326210544-5e605d46809c // indirect
+	github.com/fatih/camelcase v1.0.0 // indirect
+	github.com/fatih/structs v1.1.0 // indirect
 	github.com/gorilla/websocket v1.4.0
+	github.com/koding/multiconfig v0.0.0-20171124222453-69c27309b2d7
 	github.com/kr/pretty v0.1.0 // indirect
 	github.com/pkg/errors v0.8.1
 	github.com/stretchr/codecs v0.0.0-20170403063245-04a5b1e1910d // indirect
