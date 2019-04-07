@@ -1,4 +1,4 @@
-FROM golang:1.11.4-alpine as builder
+FROM golang:1.12.2-alpine as builder
 
 # Add Maintainer Info
 LABEL maintainer="Oleg Balunenko <oleg.balunenko@gmail.com>"
@@ -22,7 +22,7 @@ RUN make compile-for-docker
 
 
 ######## Start a new stage from scratch #######
-FROM alpine:latest
+FROM golang:1.12.2-alpine
 
 RUN apk --no-cache add ca-certificates
 
