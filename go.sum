@@ -6,6 +6,7 @@ github.com/clbanning/x2j v0.0.0-20180326210544-5e605d46809c h1:gZ7YRTPnL5fRduIw4
 github.com/clbanning/x2j v0.0.0-20180326210544-5e605d46809c/go.mod h1:jMjuTZXRI4dUb/I5gc9Hdhagfvm9+RyrPryS/auMzxE=
 github.com/davecgh/go-spew v1.1.0 h1:ZDRjVQ15GmhC3fiQ8ni8+OwkZQO4DARzQgrnXU1Liz8=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
+github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/fatih/camelcase v1.0.0 h1:hxNvNX/xYBp0ovncs8WyWZrOrpBNub/JfaMvbURyft8=
 github.com/fatih/camelcase v1.0.0/go.mod h1:yN2Sb0lFhZJUdVvtELVWefmrXpuZESvPmqwoZc+/fpc=
 github.com/fatih/structs v1.1.0 h1:Q7juDM0QtcnhCpeyLGQKyg4TOIghuNXrkL32pHAUMxo=
@@ -30,6 +31,8 @@ github.com/stretchr/gomniauth v0.0.0-20170717123514-4b6c822be2eb/go.mod h1:5wVra
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
 github.com/stretchr/objx v0.1.1 h1:2vfRuCMp5sSVIDSqO8oNnWJq7mPa6KVP3iPIwFBuy8A=
 github.com/stretchr/objx v0.1.1/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
+github.com/stretchr/objx v0.2.0 h1:Hbg2NidpLE8veEBkEZTL3CvlkUIVzuU9jDplZO54c48=
+github.com/stretchr/objx v0.2.0/go.mod h1:qt09Ya8vawLte6SNmTgCsAVtYtaKzEcn8ATUoHMkEqE=
 github.com/stretchr/signature v0.0.0-20160104132143-168b2a1e1b56 h1:BTR9AeovoABP8KnaBkzNtp7y/+x1n5GbOHwp3QisE1k=
 github.com/stretchr/signature v0.0.0-20160104132143-168b2a1e1b56/go.mod h1:p8v7xBdwApv7pgPN+8jQ3LpBQJDAusrtE+YBWBbab9Q=
 github.com/stretchr/stew v0.0.0-20130812190256-80ef0842b48b h1:DmfFjW6pLdaJNVHfKgCxTdKFI6tM+0YbMd0kx7kE78s=
