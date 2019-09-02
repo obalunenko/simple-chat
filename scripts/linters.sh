@@ -16,7 +16,7 @@ function golangci(){
         golangci-lint run ./...
     else
         printf "Cannot check golang-ci, please run:
-        curl -sfL https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | sh -s -- -b $(go env GOPATH)/bin v1.12.5 \n"
+        curl -sfL https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | sh -s -- -b $(go env GOPATH)/bin \n"
         exit 1
     fi
     echo ""
