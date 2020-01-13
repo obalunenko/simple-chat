@@ -9,7 +9,7 @@ require (
 	github.com/gorilla/websocket v1.4.1
 	github.com/koding/multiconfig v0.0.0-20171124222453-69c27309b2d7
 	github.com/kr/pretty v0.1.0 // indirect
-	github.com/pkg/errors v0.8.1
+	github.com/pkg/errors v0.9.0
 	github.com/stretchr/codecs v0.0.0-20170403063245-04a5b1e1910d // indirect
 	github.com/stretchr/gomniauth v0.0.0-20170717123514-4b6c822be2eb
 	github.com/stretchr/objx v0.2.0
